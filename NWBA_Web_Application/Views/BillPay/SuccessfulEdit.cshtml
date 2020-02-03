@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewData["Title"] = "Success";
+}
+
+<h1>Success</h1>
+<hr />
+<h3>Your changes have been made successfully.</h3>
+
+<div>
+    <a asp-controller="BillPay" asp-action="Index">Back to Scheduled Payments</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

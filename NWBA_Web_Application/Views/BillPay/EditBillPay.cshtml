@@ -1,0 +1,63 @@
+﻿@model NWBA_Web_Application.Models.BillPay
+
+@{
+    ViewData["Title"] = "Edit Bill";
+}
+
+<h1>Edit</h1>
+
+<h4>Edit Scheduled Payment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditBillPay">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="BillPayID" />
+            <div class="form-group">
+                <label asp-for="AccountNumber" class="control-label"> From Account:</label>
+                <select asp-for="AccountNumber" class="form-control">
+                    @foreach (var account in (List<Account>)ViewBag.Accounts)
+                    {
+                        <option value="@account.AccountNumber"> @account.AccountType: @account.AccountNumber </option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PayeeID" class="control-label">To Payee: </label>
+                <input asp-for="PayeeID" class="form-control" />
+                <span asp-validation-for="PayeeID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label">Amount: </label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ScheduleDate" class="control-label">Date: </label>
+                <input asp-for="ScheduleDate" class="form-control" />
+                <span asp-validation-for="ScheduleDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Period" class="control-label">Period:</label>
+                <select asp-for="Period" class="form-control">
+                    <option value="S"> Once Off</option>
+                    <option value="M"> Monthly </option>
+                    <option value="Q"> Quarterly </option>
+                    <option value="A"> Anually </option>
+
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save Changes" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="BillPay" asp-action="Index">Back to Scheduled Payments</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,124 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Core.Common
+@model NWBA_Web_Application.Models.BillPayViewModel
+
+@{
+    ViewData["Title"] = "Pay Bills";
+}
+<div>
+    <h1>
+        My Scheduled Bills for
+        @{ if (Model.id == 0)
+            {
+                @Html.Encode(ViewBag.Accounts[0].AccountNumber);
+            }
+            else @Html.Encode(Model.id);
+        }
+    </h1>
+    <a asp-action="ScheduleBillPay">Schedule a new payment</a>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index" method="get">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label"> Please choose an account:</label>
+                <select class="form-control" asp-for="id">
+                    @foreach (var account in (List<Account>)ViewBag.Accounts)
+                    {
+                        if (@account.AccountType == "S")
+                        {
+                            <option value="@account.AccountNumber"> Savings: &nbsp; @account.AccountNumber </option>
+                        }
+                        else
+                        {
+                            <option value="@account.AccountNumber"> Checking: &nbsp; @account.AccountNumber </option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="View" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.BillPays[0].AccountNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BillPays[0].Payee.PayeeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BillPays[0].Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BillPays[0].ScheduleDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BillPays[0].Period)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var billPay in Model.BillPays)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(x => billPay.AccountNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(x => billPay.Payee.PayeeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(x => billPay.Amount)
+                </td>
+                <td>
+                    @billPay.ScheduleDate.ToLocalTime()
+                </td>
+                <td>
+                    @switch (billPay.Period)
+                    {
+                        case "A":
+                            @Html.Raw("Annually");
+                            break;
+                        case "M":
+                            @Html.Raw("Monthly");
+                            break;
+                        case "Q":
+                            @Html.Raw("Quarterly");
+                            break;
+                        case "S":
+                            @Html.Raw("Once-Off");
+                            break;
+                    }
+                    @*@Html.DisplayFor(x => billPay.Period)*@
+                </td>
+                <td>
+                    <a asp-action="EditBillPay" asp-route-id="@billPay.BillPayID">Edit</a>
+                </td>   
+                <td>  
+                    <a asp-action="Delete" asp-route-id="@billPay.BillPayID">Delete</a>    
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    @Html.PagedListPager(Model.BillPays, page => Url.Action("Index", new { Model, page }),
+            new PagedListRenderOptions
+            {
+                LiElementClasses = new[] { "page-item" },
+                PageClasses = new[] { "page-link" }
+            })
+</div>
+<div>
+    <a asp-controller="Customer" asp-action="Index">Back to Accounts</a>
+</div>

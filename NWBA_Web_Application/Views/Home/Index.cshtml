@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+    <div>
+        <div class="text-center">
+            <br>
+            <h3>Welcome to the</h3>
+
+            <h1 class="display-4">National Wealth Bank of Australasia</h1>
+            @{
+                bool loggedIn = Context.Session.GetInt32(nameof(Customer.CustomerID)).HasValue;
+            }
+            @if (!loggedIn)
+            {
+                <h6>Please log in to get started</h6><br>
+                <div class="main-body"><br><br><br><br><br><br><br><br><br></div>
+            }
+            else
+            {
+                <h6>Internet banking, just for you</h6><br>
+                <div class="main-body"><br><br><br><br><br><br><br><br><br></div>
+            }
+            <br>
+            <h4>Contact Us </h4>
+            <address>
+                Email: support@NWBA.com<br>
+                Phone: (03) 8675 4672<br>
+                56 Moonlight Way, Seymour, VIC, 3660
+            </address>
+        </div>
+        
+    </div>

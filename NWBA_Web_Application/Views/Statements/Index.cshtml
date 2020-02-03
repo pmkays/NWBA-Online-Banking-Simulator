@@ -1,0 +1,142 @@
+﻿
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Core.Common
+@model NWBA_Web_Application.Models.StatementsViewModel
+
+@{
+    ViewData["Title"] = "Statement";
+}
+
+
+    <h1>
+        Statement for
+        @{ if (Model.id == 0)
+            {
+                @Html.Encode(ViewBag.Accounts[0].AccountNumber);
+            }
+            else @Html.Encode(Model.id);
+   }
+        </h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index" method="get">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label"> Please choose an account:</label>
+                <select class="form-control" asp-for="id">
+                    @foreach (var account in (List<Account>)ViewBag.Accounts)
+                    {
+                        if (@account.AccountType == "S")
+                        {
+                            <option value="@account.AccountNumber"> Savings: &nbsp; @account.AccountNumber </option>
+                        }
+                        else
+                        {
+                            <option value="@account.AccountNumber"> Checking: &nbsp; @account.AccountNumber </option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="View" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Transactions[0].Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Transactions[0].TransactionType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Transactions[0].DestinationAccountNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Transactions[0].ModifyDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Transactions[0].Comment)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction in Model.Transactions)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(x => transaction.Amount)
+                    </td>
+                    <td>
+                        @switch (transaction.TransactionType)
+                        {
+                            case "D":
+                                @Html.Raw("Deposit");
+                                break;
+                            case "W":
+                                @Html.Raw("Withdrawal");
+                                break;
+                            case "T":
+                                @Html.Raw("Transfer");
+                                break;
+                            case "S":
+                                @Html.Raw("Service");
+                                break;
+                            case "B":
+                                @Html.Raw("Billpay");
+                                break;
+                        }
+                    </td>
+                    <td>
+                        @{
+                                string destination = "-";
+                                if (transaction.DestinationAccountNumber != null)
+                                {
+                                    @Html.DisplayFor(x => transaction.DestinationAccountNumber)
+                                }
+                                else
+                                {
+                                    @Html.Encode(destination);
+                                }
+                            }
+
+                    </td>
+                    <td>
+                        @transaction.ModifyDate.ToLocalTime()
+                    </td>
+                    <td>
+                        @{
+                                string comment = "-";
+                                if (transaction.Comment != null)
+                                {
+                                    @Html.DisplayFor(x => transaction.Comment)
+                                }
+                                else
+                                {
+                                    @Html.Encode(comment);
+                                }
+                            }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Html.PagedListPager(Model.Transactions, page => Url.Action("Index", new { Model, page }),
+            new PagedListRenderOptions
+            {
+                LiElementClasses = new[] { "page-item" },
+                PageClasses = new[] { "page-link" }
+            })
+</div>
+
+<div>
+    <a asp-controller="Customer" asp-action="Index">Back to Accounts</a>
+</div>

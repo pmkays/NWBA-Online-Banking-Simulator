@@ -1,0 +1,57 @@
+﻿@model NWBA_Web_Application.Models.ATMFormModel
+@{
+    ViewData["Title"] = "Confirm";
+}
+
+<h1>Confirm</h1>
+<p><strong>Please confirm the following is correct:</strong></p>
+<p><strong>From account:</strong> @Model.AccountNumber</p>
+<p>
+    <strong>Transaction Type:</strong>
+    @{ switch (Model.TransactionType.ToLower())
+        {
+            case "t":
+                @Html.Encode("Transfer")
+                break;
+            case "w":
+                @Html.Encode("Withdraw")
+                break;
+            case "d":
+                @Html.Encode("Deposit")
+                break;
+        }
+    }
+</p>
+@{if (@Model.TransactionType.ToLower() == "t")
+    {
+    <p>
+        <strong>To account:</strong> @Model.DestinationAccountNumber
+    </p>
+    }
+}
+
+<p><strong>Amount:</strong> @Model.Amount</p>
+
+@{if (@Model.TransactionType.ToLower() == "t")
+    {
+    <p>
+        <strong>Comment:</strong> @Model.Comment
+    </p>
+    }
+}
+
+<form asp-action="Confirm" method="post">
+    <div class="form-group">
+        <input type="hidden" asp-for="@Model.AccountNumber" value="@Model.AccountNumber" />
+        <input type="hidden" asp-for="@Model.TransactionType" value="@Model.TransactionType" />
+        <input type="hidden" asp-for="@Model.DestinationAccountNumber" value="@Model.DestinationAccountNumber" />
+        <input type="hidden" asp-for="@Model.Amount" value="@Model.Amount" />
+        <input type="hidden" asp-for="@Model.Balance" value="@Model.Balance" />
+        <input type="hidden" asp-for="@Model.Comment" value="@Model.Comment" />
+        <input type="submit" value="Confirm" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-controller="customer" asp-action="Index">Back to Accounts</a>
+</div>

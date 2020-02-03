@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewData["Title"] = "Success";
+}
+
+<h1>Success</h1>
+<hr />
+<h3>Your @ViewBag.Changed has been successfully changed.</h3>
+
+<div>
+    <a asp-action="Details" asp-route-id="@Context.Session.GetInt32(nameof(Customer.CustomerID)).Value">Back to Details</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

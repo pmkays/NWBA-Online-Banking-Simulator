@@ -1,0 +1,74 @@
+﻿@model NWBA_Web_Application.Models.BillPayFormModel
+@{
+    ViewData["Title"] = "Pay Bills";
+}
+
+<h1>Pay Bills</h1>
+
+<h4>Customer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ScheduleBillPay">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="SenderAccountNumber" class="control-label"> From Account:</label>
+                <select asp-for="SenderAccountNumber" class="form-control">
+                    @foreach (var account in (List<Account>)ViewBag.Accounts)
+                    {
+                        if (account.AccountType == "S")
+                        {
+                            <option value="@account.AccountNumber"> Savings: @account.AccountNumber </option>
+                        }
+                        else
+                        {
+                            <option value="@account.AccountNumber"> Checking: @account.AccountNumber </option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="DestinationID" class="control-label">To Payee: </label>
+                <select asp-for="DestinationID" class="form-control">
+                    @foreach (var payee in (List<Payee>)ViewBag.Payees)
+                    {
+                        <option value="@payee.PayeeID"> @payee.PayeeName : @payee.PayeeID </option>
+                    }
+                </select>
+                <span asp-validation-for="DestinationID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label">Amount: </label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label">Date: </label>
+                <input asp-for="Date" class="form-control"/>
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Period" class="control-label">Period:</label>
+                <select asp-for="Period" class="form-control">
+                    <option value="S"> Once Off </option>
+                    <option value="M"> Monthly </option>
+                    <option value="Q"> Quarterly </option>
+                    <option value="A"> Anually </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="BillPay" asp-action="Index">Back to Scheduled Payments</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

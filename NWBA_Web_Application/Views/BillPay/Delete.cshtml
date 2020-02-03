@@ -1,0 +1,47 @@
+﻿@model NWBA_Web_Application.Models.BillPay
+@{
+    ViewData["Title"] = "Confirm";
+}
+
+<h1>Confirm</h1>
+<p><strong>Are you sure you want to delete the following scheduled payment?</strong></p>
+<p><strong>From account:</strong> @Model.AccountNumber</p>
+<p><strong>To Payee:</strong> @Model.Payee.PayeeName</p>
+<p><strong>Amount:</strong> @Model.Amount</p>
+<p><strong>Date:</strong> @Model.ScheduleDate.ToLocalTime()</p>
+<p>
+    <strong>Period:</strong>
+    @{ switch (Model.Period.ToLower())
+        {
+            case "s":
+                @Html.Encode("Once off")
+                break;
+            case "m":
+                @Html.Encode("Monthly")
+                break;
+            case "q":
+                @Html.Encode("Quaterly")
+                break;
+            case "a":
+                @Html.Encode("Anually")
+                break;
+        }
+    }
+</p>
+    <form asp-action="Delete" method="post">
+
+
+        <div class="form-group">
+            <input type="hidden" asp-for="@Model.BillPayID" value="@Model.BillPayID" />
+            <input type="hidden" asp-for="@Model.AccountNumber" value="@Model.AccountNumber" />
+            <input type="hidden" asp-for="@Model.PayeeID" value="@Model.PayeeID" />
+            <input type="hidden" asp-for="@Model.Amount" value="@Model.Amount" />
+            <input type="hidden" asp-for="@Model.ScheduleDate" value="@Model.ScheduleDate" />
+            <input type="hidden" asp-for="@Model.Period" value="@Model.Period" />
+            <input type="submit" value="Confirm" class="btn btn-primary" />
+        </div>
+    </form>
+
+    <div>
+        <a asp-action="Index">Back to Scheduled Payments</a>
+    </div>
