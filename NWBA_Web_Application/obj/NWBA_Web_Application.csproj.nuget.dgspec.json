@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\IaNNz\\Downloads\\WDT\\Assignment 2\\a2-s3788210-s3782041\\NWBA_Web_Application\\NWBA_Web_Application.csproj": {}
+    "C:\\Users\\IaNNz\\Documents\\GitHub\\-a3-s3788210-s3782041\\NWBA_Web_Application\\NWBA_Web_Application.csproj": {}
   },
   "projects": {
-    "C:\\Users\\IaNNz\\Downloads\\WDT\\Assignment 2\\a2-s3788210-s3782041\\NWBA_Web_Application\\NWBA_Web_Application.csproj": {
+    "C:\\Users\\IaNNz\\Documents\\GitHub\\-a3-s3788210-s3782041\\NWBA_Web_Application\\NWBA_Web_Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\IaNNz\\Downloads\\WDT\\Assignment 2\\a2-s3788210-s3782041\\NWBA_Web_Application\\NWBA_Web_Application.csproj",
+        "projectUniqueName": "C:\\Users\\IaNNz\\Documents\\GitHub\\-a3-s3788210-s3782041\\NWBA_Web_Application\\NWBA_Web_Application.csproj",
         "projectName": "NWBA_Web_Application",
-        "projectPath": "C:\\Users\\IaNNz\\Downloads\\WDT\\Assignment 2\\a2-s3788210-s3782041\\NWBA_Web_Application\\NWBA_Web_Application.csproj",
+        "projectPath": "C:\\Users\\IaNNz\\Documents\\GitHub\\-a3-s3788210-s3782041\\NWBA_Web_Application\\NWBA_Web_Application.csproj",
         "packagesPath": "C:\\Users\\IaNNz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\IaNNz\\Downloads\\WDT\\Assignment 2\\a2-s3788210-s3782041\\NWBA_Web_Application\\obj\\",
+        "outputPath": "C:\\Users\\IaNNz\\Documents\\GitHub\\-a3-s3788210-s3782041\\NWBA_Web_Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -61,7 +61,7 @@
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[3.1.0, )"
+              "version": "[3.1.1, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",

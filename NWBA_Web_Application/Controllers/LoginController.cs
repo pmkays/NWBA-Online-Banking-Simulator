@@ -40,6 +40,7 @@ namespace NWBA_Web_Application.Controllers
         {
             HttpContext.Session.Remove(nameof(Customer.CustomerID));
             HttpContext.Session.Remove(nameof(Customer.CustomerName));
+            HttpContext.Session.Remove("AdminPresent");
             return RedirectToAction("Index", "Home");
         }
     }
