@@ -47,6 +47,11 @@ namespace NWBA_Web_Application.Models.Business_Objects
 
         public void Update(Login login)
         {
+            if (login.LoginAttempts >= 3)
+            {
+                login.Status = "Blocked";
+                login.BlockTime = DateTime.UtcNow;
+            }
             _context.Update(login);
             _context.SaveChanges();
         }

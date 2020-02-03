@@ -24,14 +24,27 @@ namespace NWBA_Web_Application.Controllers
         public async Task<IActionResult> Login(string userID, string password)
         {
             var currLogin = await _loginRepo.GetFromUserID(userID);
-            if (currLogin is null || !PBKDF2.Verify(currLogin.PasswordHash, password))
+            if (currLogin is null || !PBKDF2.Verify(currLogin.PasswordHash, password) || currLogin.Status == "Blocked")
             {
-                ModelState.AddModelError("LoginFailed", "Login failed, please try again.");
+                currLogin.LoginAttempts++;
+                _loginRepo.Update(currLogin);
+                if (currLogin.LoginAttempts >= 3)
+                {
+                    ModelState.AddModelError("LoginFailed", "Too many unsucessful log in attempts, please try again later.");
+                }
+                else
+                {
+                    ModelState.AddModelError("LoginFailed", "Login failed, please try again.");
+                }
+                
                 return View();
             }
 
             HttpContext.Session.SetInt32(nameof(Customer.CustomerID), currLogin.CustomerID);
             HttpContext.Session.SetString(nameof(Customer.CustomerName), currLogin.Customer.CustomerName);
+
+            currLogin.LoginAttempts = 0;
+            _loginRepo.Update(currLogin);
 
             return RedirectToAction("Index", "Customer");
         }
