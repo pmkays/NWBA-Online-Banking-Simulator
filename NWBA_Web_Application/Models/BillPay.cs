@@ -36,6 +36,8 @@ namespace NWBA_Web_Application.Models
         [PeriodType]
         public string Period { get; set; }
         [Required]
+        public string Status { get; set; }
+        [Required]
         public DateTime ModifyDate { get; set; }
     }
 

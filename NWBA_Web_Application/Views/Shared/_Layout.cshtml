@@ -26,6 +26,7 @@
                         </li>
                         @{
                             bool loggedIn = Context.Session.GetInt32(nameof(Customer.CustomerID)).HasValue;
+                            bool adminLoggedIn = (Context.Session.GetInt32("AdminPresent") == 1);
                         }
                         @if (loggedIn)
                         {
@@ -48,6 +49,18 @@
                                 <span class="nav-link">
                                     <!--This calls the session id's name-->
                                     Welcome, @Context.Session.GetString(nameof(Customer.CustomerName))
+                                </span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Login" asp-action="Logout">Log Out</a>
+                            </li>
+                        }
+                        else if (adminLoggedIn)
+                        {
+                            <li class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                                <span class="nav-link">
+                                    <!--This calls the session id's name-->
+                                    Welcome home Master Admin!
                                 </span>
                             </li>
                             <li class="nav-item">
