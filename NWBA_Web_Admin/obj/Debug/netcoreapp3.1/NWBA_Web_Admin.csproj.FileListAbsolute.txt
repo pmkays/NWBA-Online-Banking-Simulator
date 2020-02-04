@@ -60,7 +60,10 @@ C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\bin\Debug\n
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\bin\Debug\netcoreapp3.1\NWBA_Web_Admin.Views.dll
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\bin\Debug\netcoreapp3.1\NWBA_Web_Admin.Views.pdb
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
-C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\NWBA_Web_Admin.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\NWBA_Web_Admin.Views.pdb
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\NWBA_Web_Admin.dll
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\NWBA_Web_Admin.pdb
+C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll

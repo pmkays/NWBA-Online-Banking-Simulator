@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApi.Models
 {
+    [Table("Customer")]
     public partial class Customer
     {
         public Customer()

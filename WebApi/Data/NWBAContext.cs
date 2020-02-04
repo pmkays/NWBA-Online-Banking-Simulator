@@ -5,13 +5,13 @@ using WebApi.Models;
 
 namespace WebApi.Data
 {
-    public partial class s3788210Context : DbContext
+    public partial class NWBAContext : DbContext
     {
-        public s3788210Context()
+        public NWBAContext()
         {
         }
 
-        public s3788210Context(DbContextOptions<s3788210Context> options)
+        public NWBAContext(DbContextOptions<NWBAContext> options)
             : base(options)
         {
         }
