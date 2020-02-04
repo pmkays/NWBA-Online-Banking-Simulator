@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +35,6 @@ namespace NWBA_Web_Admin.Controllers
         public async Task<IActionResult> Graphs()
         {
             GraphViewModel formModel = new GraphViewModel();
-            formModel.Date1 = DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy"));
             formModel.Date2 = DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy"));
 
             var response = await WebApi.InitializeClient().GetAsync("api/customers");
@@ -49,20 +49,43 @@ namespace NWBA_Web_Admin.Controllers
             var customers = JsonConvert.DeserializeObject<List<Customer>>(result);
             ViewBag.AllCustomers = customers;
             return View(formModel);
-            //var response = await WebApi.InitializeClient().GetAsync("api/transactions");
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Graphs(GraphViewModel formModel)
+        {
+            //convert time so that 
+            //formModel.Date1 = DateTime.Parse(formModel.Date1.ToUniversalTime().ToString("dd/MM/yyyy"));
+            //formModel.Date2 = DateTime.Parse(formModel.Date1.ToUniversalTime().ToString("dd/MM/yyyy"));
 
-            //if (!response.IsSuccessStatusCode)
-            //{
-            //    throw new Exception();
-            //}
+            string date1 = formModel.Date1.ToUniversalTime().ToString("dd-MM-yyyy");
+            string date2 = formModel.Date1.ToUniversalTime().ToString("dd-MM-yyyy");
+            HttpResponseMessage response; 
+            if (formModel.CustomerID == 0)
+            {
+                //response = await WebApi.InitializeClient().GetAsync($"api/transactions/{formModel.Date1}/{formModel.Date2}");
+                response = await WebApi.InitializeClient().GetAsync($"api/transactions/getRangeAll/{date1}/{date2}");
 
-            //// Storing the response details recieved from web api.
-            //var result = response.Content.ReadAsStringAsync().Result;
+            }
+            else
+            {
+                response = await WebApi.InitializeClient().GetAsync($"api/transactions/getRange/{date1}/{date2}");
+            }
 
-            //// Deserializing the response recieved from web api and storing into a list.
-            //var transactions = JsonConvert.DeserializeObject<List<Transaction>>(result);
+            if (!response.IsSuccessStatusCode || response is null)
+            {
+                throw new Exception();
+            }
 
-            //return View(transactions);
+            var result = response.Content.ReadAsStringAsync().Result;
+            var totals = JsonConvert.DeserializeObject<List<int>>(result);
+            return RedirectToAction("DisplayGraphs", totals);
+        }
+
+        public IActionResult DisplayGraphs(List<int> totals)
+        {
+            //not done yet
+            return View(totals);
         }
 
     }

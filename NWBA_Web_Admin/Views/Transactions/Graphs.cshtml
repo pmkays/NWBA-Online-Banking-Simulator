@@ -9,11 +9,12 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Index">
+        <form asp-action="Graphs">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div id="destinationAccount" class="form-group">
                 <label asp-for="CustomerID" class="control-label"> Customer: </label>
                 <select asp-for="CustomerID" class="form-control">
+                    <option value="0"> All </option>
                     @foreach (var customer in (List<Customer>)ViewBag.AllCustomers)
                     {
                         <option value="@customer.CustomerId"> @customer.CustomerName: &nbsp; @customer.CustomerId </option>

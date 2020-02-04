@@ -47,16 +47,16 @@ namespace WebApi.Models.DataManagers
             return id;
         }
 
-        //public IEnumerable<Transaction> GetRange(string date1, string date2)
-        //{
-        //    _context.Transaction.Where()
-        //}
+        public IEnumerable<int> GetRangeAll(DateTime date1, DateTime date2)
+        {
+            return _context.Transaction.Where(x => x.ModifyDate >= date1 && x.ModifyDate <= date2).
+                OrderByDescending(x => x.ModifyDate).GroupBy(x=> x.ModifyDate).Select(x => x.Count()).ToList();
+        }
 
-        //public IEnumerable<Transaction> GetRangeAll(string date1, string date2, int id)
-        //{
-
-        //}
-
-        //private DateTime Convert()
+        public IEnumerable<int> GetRange(int id, DateTime date1, DateTime date2)
+        {
+            return _context.Transaction.Where(x => x.ModifyDate >= date1 && x.ModifyDate <= date2 && x.AccountNumberNavigation.CustomerId == id).
+                OrderByDescending(x => x.ModifyDate).GroupBy(x => x.ModifyDate).Select(x => x.Count()).ToList();
+        }
     }
 }
