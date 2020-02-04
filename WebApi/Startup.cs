@@ -32,7 +32,14 @@ namespace WebApi
         {
             services.AddDbContext<NWBAContext>(options =>
           options.UseSqlServer(Configuration.GetConnectionString("NWBAConnectionString")));
+
             services.AddTransient<CustomerManager>();
+            services.AddTransient<AccountManager>();
+            services.AddTransient<TransactionManager>();
+            services.AddTransient<LoginManager>();
+            services.AddTransient<PayeeManager>();
+            services.AddTransient<BillPayManager>();
+
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddControllers();
         }
