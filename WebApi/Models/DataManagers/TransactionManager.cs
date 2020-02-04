@@ -46,5 +46,17 @@ namespace WebApi.Models.DataManagers
             _context.SaveChanges();
             return id;
         }
+
+        //public IEnumerable<Transaction> GetRange(string date1, string date2)
+        //{
+        //    _context.Transaction.Where()
+        //}
+
+        //public IEnumerable<Transaction> GetRangeAll(string date1, string date2, int id)
+        //{
+
+        //}
+
+        //private DateTime Convert()
     }
 }
