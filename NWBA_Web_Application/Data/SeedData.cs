@@ -79,6 +79,8 @@ namespace NWBA_Web_Application.Data
                     UserID = "12345678",
                     CustomerID = 2100,
                     PasswordHash = "YBNbEL4Lk8yMEWxiKkGBeoILHTU7WZ9n8jJSy8TNx0DAzNEFVsIVNRktiQV+I8d2",
+                    Status = "Active",
+                    LoginAttempts = 0,
                     ModifyDate = DateTime.ParseExact("19/12/2019 08:00:00 PM", format, null)
                 },
                 new Login
@@ -86,6 +88,8 @@ namespace NWBA_Web_Application.Data
                     UserID = "38074569",
                     CustomerID = 2200,
                     PasswordHash = "EehwB3qMkWImf/fQPlhcka6pBMZBLlPWyiDW6NLkAh4ZFu2KNDQKONxElNsg7V04",
+                    Status = "Active",
+                    LoginAttempts = 0,
                     ModifyDate = DateTime.ParseExact("19/12/2019 09:00:00 PM", format, null)
 
                 },
@@ -94,8 +98,10 @@ namespace NWBA_Web_Application.Data
                     UserID = "17963428",
                     CustomerID = 2300,
                     PasswordHash = "LuiVJWbY4A3y1SilhMU5P00K54cGEvClx5Y+xWHq7VpyIUe5fe7m+WeI0iwid7GE",
+                    Status = "Active",
+                    LoginAttempts = 0,
                     ModifyDate = DateTime.ParseExact("19/12/2019 10:00:00 PM", format, null)
-                });
+                }); ;
 
             context.SaveChanges();
         }
