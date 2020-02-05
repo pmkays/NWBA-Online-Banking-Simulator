@@ -125,7 +125,8 @@ namespace NWBA_Web_Application.Models
                 Amount = amount,
                 ScheduleDate = date.ToUniversalTime(),
                 Period = period,
-                ModifyDate = DateTime.UtcNow
+                ModifyDate = DateTime.UtcNow,
+                Status = "Active"
             };
 
             account.BillPays.Add(newBillPay);

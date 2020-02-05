@@ -38,6 +38,11 @@ namespace NWBA_Web_Application.Models.Business_Objects
             var login = await _context.Login.Include("Customer").ToListAsync();
             return login;
         }
+        public async Task<Login> GetEarliestBlockedAccount()
+        {
+            string status = "Blocked";
+            return await _context.Login.OrderBy(x => x.BlockTime).Where(x => x.Status == status).FirstOrDefaultAsync();
+        }
 
         public void Add(Login login)
         {
@@ -61,6 +66,7 @@ namespace NWBA_Web_Application.Models.Business_Objects
             _context.Remove(login);
             _context.SaveChanges();
         }
+
         public void Save()
         {
             _context.SaveChanges();

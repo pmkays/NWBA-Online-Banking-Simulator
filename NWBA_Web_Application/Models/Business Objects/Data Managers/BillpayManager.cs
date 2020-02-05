@@ -37,7 +37,8 @@ namespace NWBA_Web_Application.Models.Business_Objects
 
         public async Task<BillPay> GetEarliestBillPay()
         {
-            return await _context.BillPay.Include(x => x.Payee).OrderBy(x => x.ScheduleDate).FirstOrDefaultAsync();
+            string status = "Active";
+            return await _context.BillPay.Include(x => x.Payee).OrderBy(x => x.ScheduleDate).Where(x=>x.Status== status).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<BillPay>> GetAll()

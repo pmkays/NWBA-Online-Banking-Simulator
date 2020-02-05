@@ -32,6 +32,7 @@ namespace NWBA_Web_Application.BackgroundService
             Console.WriteLine("Current Time: " + DateTime.Now);
             var bpayRepo = serviceProvider.GetService<BillpayManager>();
             var accRepo = serviceProvider.GetService<AccountManager>();
+            var loginRepo = serviceProvider.GetService<LoginManager>();
             BillPay billPay = await bpayRepo.GetEarliestBillPay();
 
             if (billPay != null)
@@ -65,6 +66,19 @@ namespace NWBA_Web_Application.BackgroundService
                     Console.WriteLine("Scheduled payment has been made!");
                 }
             };
+
+            Login login = await loginRepo.GetEarliestBlockedAccount();
+            if (login != null)
+            {
+                Console.WriteLine("Time to unlock: "+ login.BlockTime.ToLocalTime().AddSeconds(60));
+                if (AreEqual(DateTime.Now, login.BlockTime.ToLocalTime().AddSeconds(60)))
+                {
+                    login.LoginAttempts = 0;
+                    login.Status = "Active";
+                    loginRepo.Update(login);
+                    Console.WriteLine("Account unblocked");
+                }
+            }
 
         }
         private void UpdateNextScheduledDate(BillPay billPay)
@@ -113,6 +127,20 @@ namespace NWBA_Web_Application.BackgroundService
                 return true;
             }
             else return false;
+        }
+
+        private async void UnblockAccounts(LoginManager _loginRepo)
+        {
+            Login login = await _loginRepo.GetEarliestBlockedAccount();
+            if (login != null)
+            {
+                Console.WriteLine(login.BlockTime.ToLocalTime().AddSeconds(60));
+                if (AreEqual(DateTime.Now, login.BlockTime.ToLocalTime().AddSeconds(60)))
+                {
+                    login.Status = "Active";
+                    _loginRepo.Update(login);
+                }
+            }
         }
     }
 }

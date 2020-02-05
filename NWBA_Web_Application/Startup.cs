@@ -43,6 +43,9 @@ namespace NWBA_Web_Application
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {
+                // Session times out after 60 seconds of inactivity
+                options.IdleTimeout = TimeSpan.FromSeconds(60);
+                options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
 

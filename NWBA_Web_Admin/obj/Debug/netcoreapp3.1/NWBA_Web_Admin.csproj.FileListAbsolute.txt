@@ -265,7 +265,6 @@ C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\bin\Debug\n
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\NWBA_Web_Admin.csprojAssemblyReference.cache
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\staticwebassets\NWBA_Web_Admin.StaticWebAssets.Manifest.cache
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\staticwebassets\NWBA_Web_Admin.StaticWebAssets.xml
-C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\NWBA_Web_Admin.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\NWBA_Web_Admin.RazorAssemblyInfo.cache
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\NWBA_Web_Admin.RazorAssemblyInfo.cs
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\NWBA_Web_Admin.AssemblyInfoInputs.cache
@@ -288,3 +287,6 @@ C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\n
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\NWBA_Web_Admin.csproj.CopyComplete
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\NWBA_Web_Admin.dll
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\NWBA_Web_Admin.pdb
+C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Index.cshtml.g.cs
+C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Portal.cshtml.g.cs
+C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\NWBA_Web_Admin.MvcApplicationPartsAssemblyInfo.cache
