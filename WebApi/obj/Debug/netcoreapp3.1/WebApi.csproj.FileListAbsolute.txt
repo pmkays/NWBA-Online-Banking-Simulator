@@ -242,7 +242,6 @@ C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\WebApi\bin\Debug\netcoreap
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\WebApi\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\WebApi\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\WebApi\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\WebApi\obj\Debug\netcoreapp3.1\WebApi.csprojAssemblyReference.cache
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\WebApi\obj\Debug\netcoreapp3.1\staticwebassets\WebApi.StaticWebAssets.Manifest.cache
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\WebApi\obj\Debug\netcoreapp3.1\staticwebassets\WebApi.StaticWebAssets.xml
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\WebApi\obj\Debug\netcoreapp3.1\WebApi.MvcApplicationPartsAssemblyInfo.cache
