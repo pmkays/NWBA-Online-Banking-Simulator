@@ -64,12 +64,13 @@ namespace NWBA_Web_Admin.Controllers
             if (formModel.CustomerID == 0)
             {
                 //response = await WebApi.InitializeClient().GetAsync($"api/transactions/{formModel.Date1}/{formModel.Date2}");
-                response = await WebApi.InitializeClient().GetAsync($"api/transactions/getRangeAll/{date1}/{date2}");
+                response = await WebApi.InitializeClient().GetAsync($"api/transactions/inrange?date1={date1}&date2={date2}");
 
             }
             else
             {
-                response = await WebApi.InitializeClient().GetAsync($"api/transactions/getRange/{date1}/{date2}");
+                int id = formModel.CustomerID;
+                response = await WebApi.InitializeClient().GetAsync($"api/transactions/inrangewithid?id={id}&date1={date1}&date2={date2}");
             }
 
             if (!response.IsSuccessStatusCode || response is null)

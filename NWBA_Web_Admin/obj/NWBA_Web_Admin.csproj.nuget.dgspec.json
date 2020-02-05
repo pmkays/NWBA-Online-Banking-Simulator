@@ -1,25 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\paula\\OneDrive\\Desktop\\-a3-s3788210-s3782041\\NWBA_Web_Admin\\NWBA_Web_Admin.csproj": {}
+    "C:\\Users\\IaNNz\\Documents\\GitHub\\-a3-s3788210-s3782041\\NWBA_Web_Admin\\NWBA_Web_Admin.csproj": {}
   },
   "projects": {
-    "C:\\Users\\paula\\OneDrive\\Desktop\\-a3-s3788210-s3782041\\NWBA_Web_Admin\\NWBA_Web_Admin.csproj": {
+    "C:\\Users\\IaNNz\\Documents\\GitHub\\-a3-s3788210-s3782041\\NWBA_Web_Admin\\NWBA_Web_Admin.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\paula\\OneDrive\\Desktop\\-a3-s3788210-s3782041\\NWBA_Web_Admin\\NWBA_Web_Admin.csproj",
+        "projectUniqueName": "C:\\Users\\IaNNz\\Documents\\GitHub\\-a3-s3788210-s3782041\\NWBA_Web_Admin\\NWBA_Web_Admin.csproj",
         "projectName": "NWBA_Web_Admin",
-        "projectPath": "C:\\Users\\paula\\OneDrive\\Desktop\\-a3-s3788210-s3782041\\NWBA_Web_Admin\\NWBA_Web_Admin.csproj",
-        "packagesPath": "C:\\Users\\paula\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\paula\\OneDrive\\Desktop\\-a3-s3788210-s3782041\\NWBA_Web_Admin\\obj\\",
+        "projectPath": "C:\\Users\\IaNNz\\Documents\\GitHub\\-a3-s3788210-s3782041\\NWBA_Web_Admin\\NWBA_Web_Admin.csproj",
+        "packagesPath": "C:\\Users\\IaNNz\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\IaNNz\\Documents\\GitHub\\-a3-s3788210-s3782041\\NWBA_Web_Admin\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\paula\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\IaNNz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -87,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
