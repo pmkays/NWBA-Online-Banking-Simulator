@@ -46,5 +46,17 @@ namespace WebApi.Models.DataManagers
             _context.SaveChanges();
             return id;
         }
+
+        public IEnumerable<int> GetRangeAll(DateTime date1, DateTime date2)
+        {
+            return _context.Transaction.Where(x => x.ModifyDate >= date1 && x.ModifyDate <= date2).
+                OrderByDescending(x => x.ModifyDate).GroupBy(x=> x.ModifyDate).Select(x => x.Count()).ToList();
+        }
+
+        public IEnumerable<int> GetRange(int id, DateTime date1, DateTime date2)
+        {
+            return _context.Transaction.Where(x => x.ModifyDate >= date1 && x.ModifyDate <= date2 && x.AccountNumberNavigation.CustomerId == id).
+                OrderByDescending(x => x.ModifyDate).GroupBy(x => x.ModifyDate).Select(x => x.Count()).ToList();
+        }
     }
 }

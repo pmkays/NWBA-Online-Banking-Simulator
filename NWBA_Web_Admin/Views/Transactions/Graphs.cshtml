@@ -1,0 +1,48 @@
+﻿@model NWBA_Web_Admin.Models.ViewModels.GraphViewModel
+
+@{
+    ViewData["Title"] = "Graphs";
+}
+
+
+<h1>Graphs</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Graphs">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div id="destinationAccount" class="form-group">
+                <label asp-for="CustomerID" class="control-label"> Customer: </label>
+                <select asp-for="CustomerID" class="form-control">
+                    <option value="0"> All </option>
+                    @foreach (var customer in (List<Customer>)ViewBag.AllCustomers)
+                    {
+                        <option value="@customer.CustomerId"> @customer.CustomerName: &nbsp; @customer.CustomerId </option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date1" class="control-label">From: </label>
+                <input asp-for="Date1" class="form-control" />
+                <span asp-validation-for="Date1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date2" class="control-label">To: </label>
+                <input asp-for="Date2" class="form-control" />
+                <span asp-validation-for="Date2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GraphType" class="control-label"> Graph Type:</label>
+                <select asp-for="GraphType" class="form-control">
+                    <option value="bar">Bar</option>
+                    <option value="pie">Pie</option>
+                    <option value="line">Line</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="View" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+>
