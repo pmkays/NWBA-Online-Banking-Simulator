@@ -14,12 +14,15 @@ namespace NWBA_Web_Admin.Models
 
         [Key]
         [Column("CustomerID")]
+        [Display(Name = "Customer ID")]
         public int CustomerId { get; set; }
         [Required]
         [StringLength(50)]
+        [Display(Name = "Name")]
         public string CustomerName { get; set; }
         [Column("TFN")]
         [StringLength(11)]
+        [Display(Name = "Tax File No.")]
         public string Tfn { get; set; }
         [StringLength(50)]
         public string Address { get; set; }

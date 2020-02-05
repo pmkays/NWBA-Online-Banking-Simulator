@@ -15,11 +15,14 @@ namespace NWBA_Web_Admin.Models
         }
 
         [Key]
+        [Display(Name = "Account Number")]
         public int AccountNumber { get; set; }
         [Required]
         [StringLength(1)]
+        [Display(Name = "Type")]
         public string AccountType { get; set; }
         [Column("CustomerID")]
+        [Display(Name = "Customer ID")]
         public int CustomerId { get; set; }
         [Column(TypeName = "money")]
         public decimal Balance { get; set; }

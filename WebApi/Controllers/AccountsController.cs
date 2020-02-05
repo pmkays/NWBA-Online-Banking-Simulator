@@ -34,6 +34,13 @@ namespace WebApi.Controllers
             return _repo.Get(id);
         }
 
+        [HttpGet("AccountFromCustomer/{id}")]
+        public IEnumerable<Account> AccountFromCustomer(int id)
+        {
+          
+            return _repo.GetAccountFromCustomer(id);
+        }
+
         // POST: api/Accounts
         [HttpPost]
         public void Post([FromBody] Account customer)
