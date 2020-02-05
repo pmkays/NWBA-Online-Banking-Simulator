@@ -32,7 +32,7 @@ namespace WebApi.Models.DataManagers
 
         public Customer Get(int id)
         {
-           return _context.Customer.Include(x => x.Account).FirstOrDefault(x => x.CustomerId == id);
+           return _context.Customer.Include(x => x.Account).Include(x=>x.Login).FirstOrDefault(x => x.CustomerId == id);
         }
 
         public IEnumerable<Customer> GetAll()

@@ -994,8 +994,6 @@ C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Application\obj\D
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Application\obj\Debug\netcoreapp3.1\NWBA_Web_Application.csproj.CopyComplete
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Application\obj\Debug\netcoreapp3.1\NWBA_Web_Application.dll
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Application\obj\Debug\netcoreapp3.1\NWBA_Web_Application.pdb
-C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Application\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Index.cshtml.g.cs
-C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Application\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Portal.cshtml.g.cs
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Application\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Application\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Application\bin\Debug\netcoreapp3.1\Properties\launchSettings.json

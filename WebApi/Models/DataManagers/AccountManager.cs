@@ -35,6 +35,11 @@ namespace WebApi.Models.DataManagers
             return _context.Account.Include(x => x.TransactionAccountNumberNavigation).FirstOrDefault(x => x.AccountNumber == id);
         }
 
+        public IEnumerable<Account> GetAccountFromCustomer(int id)
+        {
+            return _context.Account.Include(x => x.TransactionAccountNumberNavigation).Where(x => x.CustomerId == id).ToList();
+        }
+
         public IEnumerable<Account> GetAll()
         {
             return _context.Account.Include(x => x.TransactionAccountNumberNavigation).ToList();

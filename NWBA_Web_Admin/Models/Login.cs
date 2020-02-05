@@ -20,6 +20,7 @@ namespace NWBA_Web_Admin.Models
         public DateTime BlockTime { get; set; }
         public int LoginAttempts { get; set; }
         [Required]
+        //[RegularExpression("^Active|Blocked^", ErrorMessage = "Must be Active or Blocked only.")]
         public string Status { get; set; }
 
         [ForeignKey(nameof(CustomerId))]
