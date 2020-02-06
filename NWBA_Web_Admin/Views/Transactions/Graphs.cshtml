@@ -1,15 +1,18 @@
 ﻿@model NWBA_Web_Admin.Models.ViewModels.GraphViewModel
-
 @{
     ViewData["Title"] = "Graphs";
 }
+
+<head>
+    <link rel="stylesheet" href="~/css/Chart.css" />
+</head>
 
 
 <h1>Graphs</h1>
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Graphs">
+        <form id="form">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div id="destinationAccount" class="form-group">
                 <label asp-for="CustomerID" class="control-label"> Customer: </label>
@@ -23,12 +26,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Date1" class="control-label">From: </label>
-                <input asp-for="Date1" class="form-control" />
+                <input type="date" asp-for="Date1" class="form-control" />
                 <span asp-validation-for="Date1" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Date2" class="control-label">To: </label>
-                <input asp-for="Date2" class="form-control" />
+                <input type="date" asp-for="Date2" class="form-control" />
                 <span asp-validation-for="Date2" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -40,9 +43,55 @@
                 </select>
             </div>
             <div class="form-group">
-                <input type="submit" value="View" class="btn btn-primary" />
+                <input id ="Submit" type="submit" value="View" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
->
+
+    <div class="container">
+        <canvas id="transactionChart"></canvas>
+    </div>
+    <script src="~/js/Chart.js"></script>
+    <script src="~/js/moment.js"></script>
+    <script>
+        @using Newtonsoft;
+        $("#form").submit(function (e) {
+            //leave this so ajax can be called
+            e.preventDefault();
+            //param1: url, param2: data to pass in method called, param3: the data is returned if successful in an anon function
+            $.post("https://localhost:44331/transactions/graphs", @Json.Serialize(Model), function (transactionDates) {
+                const labels = [];
+                const data = [];
+                for (let x of transactionDates) {
+                    labels.push(x.Date);
+                    data.push({ t: moment(x.Date, "DD/MM/YYYY").toDate(), y: x.Count });
+                }
+
+                const transactionChart = new Chart(canvas, {
+                    type: "@ViewBag.GraphType",
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: "Transaction count",
+                            data: data,
+                            options: {
+                                scales: {
+                                    xAxes: [{
+                                        type: "time",
+                                        time: {
+                                            unit: "day"
+                                        }
+                                    }]
+                                }
+                            },
+                            backgroundColor: "rgba(255, 99, 132, 0.2)",
+                            borderColor: "rgba(255, 99, 132, 1)",
+                            borderWidth: 1
+                        }]
+                    }
+                });
+            });
+        }
+    </script>
+

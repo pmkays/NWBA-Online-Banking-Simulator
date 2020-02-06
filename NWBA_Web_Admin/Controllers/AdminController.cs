@@ -172,7 +172,7 @@ namespace NWBA_Web_Admin.Controllers
 
         }
 
-        public Boolean IsAdminLoggedOn()
+        public bool IsAdminLoggedOn()
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("AdminPresent")))
             {

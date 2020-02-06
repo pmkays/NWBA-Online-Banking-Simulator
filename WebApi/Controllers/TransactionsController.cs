@@ -56,14 +56,14 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("inrange")]
-        public IEnumerable<int> GetRangeAll(string date1, string date2)
+        public IEnumerable<TransDateCount> GetRangeAll(string date1, string date2)
         {
             return _repo.GetRangeAll(DateTime.Parse(date1), DateTime.Parse(date2));
 
         }
 
-        [HttpGet("/inrangewithid")]
-        public IEnumerable<int> GetRange(int id, string date1, string date2)
+        [HttpGet("inrangewithid")]
+        public IEnumerable<TransDateCount> GetRange(int id, string date1, string date2)
         {
             return _repo.GetRange(id, DateTime.Parse(date1), DateTime.Parse(date2));
         }
