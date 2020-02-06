@@ -1,24 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\IaNNz\\Documents\\GitHub\\-a3-s3788210-s3782041\\WebApi\\WebApi.csproj": {}
+    "C:\\Users\\paula\\OneDrive\\Desktop\\-a3-s3788210-s3782041\\WebApi\\WebApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\IaNNz\\Documents\\GitHub\\-a3-s3788210-s3782041\\WebApi\\WebApi.csproj": {
+    "C:\\Users\\paula\\OneDrive\\Desktop\\-a3-s3788210-s3782041\\WebApi\\WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\IaNNz\\Documents\\GitHub\\-a3-s3788210-s3782041\\WebApi\\WebApi.csproj",
+        "projectUniqueName": "C:\\Users\\paula\\OneDrive\\Desktop\\-a3-s3788210-s3782041\\WebApi\\WebApi.csproj",
         "projectName": "WebApi",
-        "projectPath": "C:\\Users\\IaNNz\\Documents\\GitHub\\-a3-s3788210-s3782041\\WebApi\\WebApi.csproj",
-        "packagesPath": "C:\\Users\\IaNNz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\IaNNz\\Documents\\GitHub\\-a3-s3788210-s3782041\\WebApi\\obj\\",
+        "projectPath": "C:\\Users\\paula\\OneDrive\\Desktop\\-a3-s3788210-s3782041\\WebApi\\WebApi.csproj",
+        "packagesPath": "C:\\Users\\paula\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\paula\\OneDrive\\Desktop\\-a3-s3788210-s3782041\\WebApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\IaNNz\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\paula\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -86,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

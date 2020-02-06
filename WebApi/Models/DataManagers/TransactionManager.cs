@@ -49,11 +49,13 @@ namespace WebApi.Models.DataManagers
 
         public IEnumerable<TransDateCount> GetRangeAll(DateTime date1, DateTime date2)
         {
+            date1 = date1.ToUniversalTime();
+            date2 = date2.ToUniversalTime();
             //instantiate an array of new transaction date count objects
             List<TransDateCount> transDateCount = new List<TransDateCount>();
 
             //loops through the date range
-            while (date1 != date2)
+            while (date1 != date2.AddDays(1))
             {
 
                 DateTime dayAfter = date1.AddDays(1);
@@ -64,7 +66,6 @@ namespace WebApi.Models.DataManagers
                     FirstOrDefault();
 
                 //adds a new object where the date has been reconverted to local time instead of UTC
-
                 DateTime localDate = date1.ToLocalTime();
                 TransDateCount dateCount = new TransDateCount(localDate, amount);
                 transDateCount.Add(dateCount);
@@ -77,6 +78,9 @@ namespace WebApi.Models.DataManagers
 
         public IEnumerable<TransDateCount> GetRange(int id, DateTime date1, DateTime date2)
         {
+            date1 = date1.ToUniversalTime();
+            date2 = date2.ToUniversalTime();
+
             //instantiate an array of new transaction date count objects
             List<TransDateCount> transDateCount = new List<TransDateCount>();
 

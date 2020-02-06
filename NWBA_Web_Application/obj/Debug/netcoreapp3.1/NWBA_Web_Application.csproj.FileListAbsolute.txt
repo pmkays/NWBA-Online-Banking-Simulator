@@ -1150,8 +1150,6 @@ C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Application\obj\D
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Application\obj\Debug\netcoreapp3.1\NWBA_Web_Application.TagHelpers.input.cache
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Application\obj\Debug\netcoreapp3.1\NWBA_Web_Application.TagHelpers.output.cache
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Application\obj\Debug\netcoreapp3.1\NWBA_Web_Application.RazorCoreGenerate.cache
-C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Application\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Index.cshtml.g.cs
-C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Application\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Portal.cshtml.g.cs
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Application\obj\Debug\netcoreapp3.1\Razor\Views\Atm\Confirm.cshtml.g.cs
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Application\obj\Debug\netcoreapp3.1\Razor\Views\Atm\Index.cshtml.g.cs
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Application\obj\Debug\netcoreapp3.1\Razor\Views\Atm\Success.cshtml.g.cs

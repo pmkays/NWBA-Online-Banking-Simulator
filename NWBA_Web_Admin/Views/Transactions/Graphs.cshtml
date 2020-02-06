@@ -26,17 +26,17 @@
             </div>
             <div class="form-group">
                 <label asp-for="Date1" class="control-label">From: </label>
-                <input type="date" asp-for="Date1" class="form-control" />
+                <input asp-for="Date1" class="form-control" />
                 <span asp-validation-for="Date1" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Date2" class="control-label">To: </label>
-                <input type="date" asp-for="Date2" class="form-control" />
+                <input asp-for="Date2" class="form-control" />
                 <span asp-validation-for="Date2" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="GraphType" class="control-label"> Graph Type:</label>
-                <select asp-for="GraphType" class="form-control">
+                <select id = "graphType" asp-for="GraphType" class="form-control">
                     <option value="bar">Bar</option>
                     <option value="pie">Pie</option>
                     <option value="line">Line</option>
@@ -58,15 +58,13 @@
     <script>
         var canvas = document.getElementById("transactionChart").getContext("2d");
         $("#form").submit(function (e) {
-            //leave this so ajax can be called
+            //so ajax can be called
             e.preventDefault();
-            console.log("I'm joe");
 
             var f = $('#form');
 
             var serializedForm = f.serializeArray();
 
-            //param1: url, param2: data to pass in method called, param3: the data is returned if successful in an anon function
             $.post("https://localhost:44331/transactions/graphs", serializedForm, function (transactionDates) {
                 var object = transactionDates;
 
@@ -75,13 +73,13 @@
                 const labels = [];
                 const data = [];
                 for (let x of object) {
-                    console.log(x.date);
-                    labels.push(x.date);
-                    data.push({ t: moment(x.date, "DD/MM/YYYY").toDate(), y: x.count });
+                    var formattedDate = x.date.substring(0, 10);
+                    labels.push(formattedDate);
+                    data.push({ t: moment(x.date, 'L').toDate(), y: x.count });
                 }
 
                 const transactionChart = new Chart(canvas, {
-                    type: "bar",
+                    type: document.getElementById("graphType").value,
                     data: {
                         labels: labels,
                         datasets: [{

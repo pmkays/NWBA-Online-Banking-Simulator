@@ -35,54 +35,13 @@ namespace NWBA_Web_Admin.Controllers
         public async Task<IActionResult> Graphs()
         {
             GraphViewModel formModel = new GraphViewModel();
+            formModel.Date1 = DateTime.Parse("19/12/2019");
             formModel.Date2 = DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy"));
 
             var customers = await this.GetCustomers();
             ViewBag.AllCustomers = customers;
             return View(formModel);
         }
-        
-        //[HttpPost]
-        //public async Task<IActionResult> Graphs(GraphViewModel formModel)
-        //{
-
-        //    var customers = await this.GetCustomers();
-        //    ViewBag.AllCustomers = customers;
-
-        //    string date1 = formModel.Date1.ToUniversalTime().ToString("dd-MM-yyyy hh:mm:ss");
-        //    string date2 = formModel.Date2.ToUniversalTime().ToString("dd-MM-yyyy hh:mm:ss");
-
-        //    HttpResponseMessage response; 
-
-        //    if (formModel.CustomerID == 0)
-        //    {
-        //        response = await WebApi.InitializeClient().GetAsync($"api/transactions/inrange?date1={date1}&date2={date2}");
-        //    }
-        //    else
-        //    {
-        //        int id = formModel.CustomerID;
-        //        response = await WebApi.InitializeClient().GetAsync($"api/transactions/inrangewithid?id={id}&date1={date1}&date2={date2}");
-        //    }
-
-        //    if (!response.IsSuccessStatusCode)
-        //    {
-        //        throw new Exception();
-        //        //return View(formModel); 
-        //    }
-
-        //    //gets the results of the transdatecount objs as strings
-        //    var result = response.Content.ReadAsStringAsync().Result;
-
-        //    //just checking if the deserializing works which it does
-        //    //var transactions = JsonConvert.DeserializeObject<List<TransDateCount>>(result);
-
-
-        //    //return to the view where the graph will be rendered
-        //    ViewBag.GraphData = result;
-        //    ViewBag.GraphType = formModel.GraphType;
-
-        //    return View();
-        //}
 
         [HttpPost]
         public async Task<IEnumerable<TransDateCount>> Graphs(GraphViewModel formModel)
@@ -90,11 +49,8 @@ namespace NWBA_Web_Admin.Controllers
             //the model is meant to be in json format when passed through so we convert it back
             //var formModel = JsonConvert.DeserializeObject<GraphViewModel>(modelString);
 
-            var customers = await this.GetCustomers();
-            ViewBag.AllCustomers = customers;
-
-            string date1 = formModel.Date1.ToUniversalTime().ToString("dd-MM-yyyy hh:mm:ss");
-            string date2 = formModel.Date2.ToUniversalTime().ToString("dd-MM-yyyy hh:mm:ss");
+            string date1 = formModel.Date1.ToString("dd-MM-yyyy hh:mm:ss");
+            string date2 = formModel.Date2.ToString("dd-MM-yyyy hh:mm:ss");
 
             HttpResponseMessage response; 
 
@@ -108,10 +64,11 @@ namespace NWBA_Web_Admin.Controllers
                 response = await WebApi.InitializeClient().GetAsync($"api/transactions/inrangewithid?id={id}&date1={date1}&date2={date2}");
             }
 
-            if (!response.IsSuccessStatusCode)
+            this.CheckDates(formModel.Date1, formModel.Date2);
+
+            if (!response.IsSuccessStatusCode || !ModelState.IsValid)
             {
-                throw new Exception();
-                //return View(formModel); 
+                //what to return because you can't return the view
             }
 
             //gets the results of the transdatecount objs as JsonString
@@ -119,10 +76,6 @@ namespace NWBA_Web_Admin.Controllers
             Console.WriteLine(result);
             //converts it to objects again 
             var transPDay = JsonConvert.DeserializeObject<List<TransDateCount>>(result);
-
-
-            //so we can choose what type of graph to display
-            ViewBag.GraphType = formModel.GraphType;
 
             return transPDay;
         }
@@ -138,6 +91,15 @@ namespace NWBA_Web_Admin.Controllers
             var result = response.Content.ReadAsStringAsync().Result;
 
             return JsonConvert.DeserializeObject<List<Customer>>(result);
+        }
+
+        private void CheckDates(DateTime date1, DateTime date2)
+        {
+            if(date2 < date1 || (date2.Date - date1.Date).TotalDays > 30 || date2 > DateTime.Now)
+            {
+                ModelState.AddModelError(nameof(date2), "Please ensure dates are valid");
+            }
+
         }
 
 

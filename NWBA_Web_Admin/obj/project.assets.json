@@ -861,6 +861,9 @@
           }
         }
       },
+      "Moment.js/2.24.0": {
+        "type": "package"
+      },
       "NETStandard.Library/1.6.1": {
         "type": "package",
         "dependencies": {
@@ -4012,6 +4015,21 @@
         "runtimes/win/lib/netstandard2.0/Microsoft.Win32.Registry.dll",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "Moment.js/2.24.0": {
+      "sha512": "EklynJ92k3/mjOu+ux0CQvXMZqPkkuuV5SuGQNfAnbsVIdNEa8Lj0HQovfbeK4xRlFJ6BAMQB05esoM1KkyvNg==",
+      "type": "package",
+      "path": "moment.js/2.24.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/Scripts/moment-with-locales.js",
+        "Content/Scripts/moment-with-locales.min.js",
+        "Content/Scripts/moment.js",
+        "Content/Scripts/moment.min.js",
+        "moment.js.2.24.0.nupkg.sha512",
+        "moment.js.nuspec"
       ]
     },
     "NETStandard.Library/1.6.1": {
@@ -8514,28 +8532,30 @@
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.1",
       "Microsoft.Extensions.Logging.Debug >= 3.1.1",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.1",
+      "Moment.js >= 2.24.0",
       "Newtonsoft.Json >= 12.0.3"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\IaNNz\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\paula\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\IaNNz\\Documents\\GitHub\\-a3-s3788210-s3782041\\NWBA_Web_Admin\\NWBA_Web_Admin.csproj",
+      "projectUniqueName": "C:\\Users\\paula\\OneDrive\\Desktop\\-a3-s3788210-s3782041\\NWBA_Web_Admin\\NWBA_Web_Admin.csproj",
       "projectName": "NWBA_Web_Admin",
-      "projectPath": "C:\\Users\\IaNNz\\Documents\\GitHub\\-a3-s3788210-s3782041\\NWBA_Web_Admin\\NWBA_Web_Admin.csproj",
-      "packagesPath": "C:\\Users\\IaNNz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\IaNNz\\Documents\\GitHub\\-a3-s3788210-s3782041\\NWBA_Web_Admin\\obj\\",
+      "projectPath": "C:\\Users\\paula\\OneDrive\\Desktop\\-a3-s3788210-s3782041\\NWBA_Web_Admin\\NWBA_Web_Admin.csproj",
+      "packagesPath": "C:\\Users\\paula\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\paula\\OneDrive\\Desktop\\-a3-s3788210-s3782041\\NWBA_Web_Admin\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\IaNNz\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\paula\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -8584,6 +8604,10 @@
             "target": "Package",
             "version": "[3.1.1, )"
           },
+          "Moment.js": {
+            "target": "Package",
+            "version": "[2.24.0, )"
+          },
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[12.0.3, )"
@@ -8607,7 +8631,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
