@@ -251,3 +251,4 @@ C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\WebApi\obj\Debug\netcoreap
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\WebApi\obj\Debug\netcoreapp3.1\WebApi.csproj.CopyComplete
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\WebApi\obj\Debug\netcoreapp3.1\WebApi.dll
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\WebApi\obj\Debug\netcoreapp3.1\WebApi.pdb
+C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\WebApi\obj\Debug\netcoreapp3.1\WebApi.csprojAssemblyReference.cache

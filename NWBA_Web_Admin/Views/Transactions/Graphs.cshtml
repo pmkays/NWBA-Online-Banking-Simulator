@@ -54,22 +54,34 @@
     </div>
     <script src="~/js/Chart.js"></script>
     <script src="~/js/moment.js"></script>
+    <script src ="~/js/jquery-3.4.1.js"></script>
     <script>
-        @using Newtonsoft;
+        var canvas = document.getElementById("transactionChart").getContext("2d");
         $("#form").submit(function (e) {
             //leave this so ajax can be called
             e.preventDefault();
+            console.log("I'm joe");
+
+            var f = $('#form');
+
+            var serializedForm = f.serializeArray();
+
             //param1: url, param2: data to pass in method called, param3: the data is returned if successful in an anon function
-            $.post("https://localhost:44331/transactions/graphs", @Json.Serialize(Model), function (transactionDates) {
+            $.post("https://localhost:44331/transactions/graphs", serializedForm, function (transactionDates) {
+                var object = transactionDates;
+
+                console.log(object);
+
                 const labels = [];
                 const data = [];
-                for (let x of transactionDates) {
-                    labels.push(x.Date);
-                    data.push({ t: moment(x.Date, "DD/MM/YYYY").toDate(), y: x.Count });
+                for (let x of object) {
+                    console.log(x.date);
+                    labels.push(x.date);
+                    data.push({ t: moment(x.date, "DD/MM/YYYY").toDate(), y: x.count });
                 }
 
                 const transactionChart = new Chart(canvas, {
-                    type: "@ViewBag.GraphType",
+                    type: "bar",
                     data: {
                         labels: labels,
                         datasets: [{
@@ -92,6 +104,6 @@
                     }
                 });
             });
-        }
+        })
     </script>
 

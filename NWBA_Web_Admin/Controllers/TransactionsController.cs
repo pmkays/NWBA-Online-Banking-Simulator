@@ -85,10 +85,10 @@ namespace NWBA_Web_Admin.Controllers
         //}
 
         [HttpPost]
-        public async Task<List<TransDateCount>> Graphs(string modelString)
+        public async Task<IEnumerable<TransDateCount>> Graphs(GraphViewModel formModel)
         {
             //the model is meant to be in json format when passed through so we convert it back
-            var formModel = JsonConvert.DeserializeObject<GraphViewModel>(modelString);
+            //var formModel = JsonConvert.DeserializeObject<GraphViewModel>(modelString);
 
             var customers = await this.GetCustomers();
             ViewBag.AllCustomers = customers;
@@ -116,7 +116,7 @@ namespace NWBA_Web_Admin.Controllers
 
             //gets the results of the transdatecount objs as JsonString
             var result = response.Content.ReadAsStringAsync().Result;
-
+            Console.WriteLine(result);
             //converts it to objects again 
             var transPDay = JsonConvert.DeserializeObject<List<TransDateCount>>(result);
 
