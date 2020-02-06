@@ -40,6 +40,12 @@ namespace WebApi.Models.DataManagers
             return _context.BillPay.ToList();
         }
 
+        public IEnumerable<BillPay> BillPaysFromAccount(int id)
+        {
+            return _context.BillPay.Include(x => x.Payee).Where(x => x.AccountNumber == id).ToList();
+
+        }
+
         public int Update(int id, BillPay item)
         {
             _context.BillPay.Update(item);

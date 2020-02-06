@@ -172,6 +172,66 @@ namespace NWBA_Web_Admin.Controllers
 
         }
 
+        [HttpGet("ScheduledBillPays/{id}")]
+        public async Task<IActionResult> ScheduledBillPays(int id)
+        {
+            var response = await WebApi.InitializeClient().GetAsync($"api/BillPays/BillPaysFromAccount/{id}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception();
+            }
+
+            // Storing the response details recieved from web api.
+            var result = response.Content.ReadAsStringAsync().Result;
+
+            // Deserializing the response recieved from web api and storing into a list.
+            var billPays = JsonConvert.DeserializeObject<List<BillPay>>(result);
+
+            ViewBag.AccountID = id;
+            ViewBag.CustomerID = billPays[0].AccountNumberNavigation.CustomerId;
+
+            return View(billPays);
+        }
+
+        [HttpGet("StatusUpdate/{id}")]
+        public async Task<IActionResult> UnblockBlock(int id)
+        {
+            var response = await WebApi.InitializeClient().GetAsync($"api/BillPays/{id}");
+
+            if (response == null)
+            {
+                throw new Exception();
+            }
+
+            // Storing the response details recieved from web api.
+            var result = response.Content.ReadAsStringAsync().Result;
+
+            // Deserializing the response recieved from web api and storing into a list.
+            var billPay = JsonConvert.DeserializeObject<BillPay>(result);
+
+            if(billPay.Status == "Active")
+            {
+                billPay.Status = "Blocked";
+            }
+            else
+            {
+                billPay.Status = "Active";
+            }
+
+            var content = new StringContent(JsonConvert.SerializeObject(billPay), Encoding.UTF8, "application/json");
+            Console.WriteLine(JsonConvert.SerializeObject(billPay));
+            var update = WebApi.InitializeClient().PutAsync($"api/BillPays/{id}", content).Result;
+
+            if (!update.IsSuccessStatusCode)
+            {
+                throw new Exception();
+            }
+
+            return RedirectToAction("ScheduledBillPays", new { id = billPay.AccountNumber });
+
+        }
+
         public bool IsAdminLoggedOn()
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("AdminPresent")))
