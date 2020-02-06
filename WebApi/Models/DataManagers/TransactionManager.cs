@@ -60,7 +60,7 @@ namespace WebApi.Models.DataManagers
 
                 DateTime dayAfter = date1.AddDays(1);
                 var amount = _context.Transaction.
-                    Where(x => x.ModifyDate > date1 && x.ModifyDate < dayAfter).
+                    Where(x => x.ModifyDate >= date1 && x.ModifyDate <= dayAfter).
                     GroupBy(x => x.ModifyDate.Date).
                     Select(x => x.Count()).
                     FirstOrDefault();
@@ -94,7 +94,7 @@ namespace WebApi.Models.DataManagers
                 var amount = _context.Transaction.
                     Include(x => x.AccountNumberNavigation).
                     ThenInclude(a => a.Customer).
-                    Where(x => x.AccountNumberNavigation.CustomerId == id && x.ModifyDate > date1 && x.ModifyDate < dayAfter).
+                    Where(x => x.AccountNumberNavigation.CustomerId == id && x.ModifyDate >= date1 && x.ModifyDate <= dayAfter).
                     GroupBy(x => x.ModifyDate.Date).
                     Select(x => x.Count()).
                     FirstOrDefault();
@@ -106,6 +106,31 @@ namespace WebApi.Models.DataManagers
                 date1 = date1.AddDays(1);
             }
             return transDateCount;
+        }
+
+        public IEnumerable<Transaction> GetTableAll(DateTime date1, DateTime date2)
+        {
+            date1 = date1.ToUniversalTime();
+            date2 = date2.ToUniversalTime();
+            //instantiate an array of new transaction date count objects
+
+            DateTime dayAfter = date1.AddDays(1);
+            return _context.Transaction.
+                Where(x => x.ModifyDate >= date1 && x.ModifyDate <= dayAfter).
+               ToList();
+        }
+
+
+        public IEnumerable<Transaction> GetTable(int id, DateTime date1, DateTime date2)
+        {
+            date1 = date1.ToUniversalTime();
+            date2 = date2.ToUniversalTime();
+
+            DateTime dayAfter = date1.AddDays(1);
+            return _context.Transaction.
+                Include(x => x.AccountNumberNavigation).
+                ThenInclude(a => a.Customer).
+                Where(x => x.AccountNumberNavigation.CustomerId == id && x.ModifyDate >= date1 && x.ModifyDate <= dayAfter).ToList();
         }
     }
 }

@@ -67,5 +67,18 @@ namespace WebApi.Controllers
         {
             return _repo.GetRange(id, DateTime.Parse(date1), DateTime.Parse(date2));
         }
+
+        [HttpGet("intable")]
+        public IEnumerable<Transaction> GetTableAll(string date1, string date2)
+        {
+            return _repo.GetTableAll(DateTime.Parse(date1), DateTime.Parse(date2));
+
+        }
+
+        [HttpGet("intablewithid")]
+        public IEnumerable<Transaction> GetTable(int id, string date1, string date2)
+        {
+            return _repo.GetTable(id, DateTime.Parse(date1), DateTime.Parse(date2));
+        }
     }
 }

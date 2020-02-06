@@ -46,13 +46,11 @@ namespace NWBA_Web_Admin.Controllers
         [HttpPost]
         public async Task<IEnumerable<TransDateCount>> Graphs(GraphViewModel formModel)
         {
-            //the model is meant to be in json format when passed through so we convert it back
-            //var formModel = JsonConvert.DeserializeObject<GraphViewModel>(modelString);
 
             string date1 = formModel.Date1.ToString("dd-MM-yyyy hh:mm:ss");
             string date2 = formModel.Date2.ToString("dd-MM-yyyy hh:mm:ss");
 
-            HttpResponseMessage response; 
+            HttpResponseMessage response;
 
             if (formModel.CustomerID == 0)
             {
@@ -73,12 +71,56 @@ namespace NWBA_Web_Admin.Controllers
 
             //gets the results of the transdatecount objs as JsonString
             var result = response.Content.ReadAsStringAsync().Result;
-            Console.WriteLine(result);
+
             //converts it to objects again 
             var transPDay = JsonConvert.DeserializeObject<List<TransDateCount>>(result);
 
             return transPDay;
         }
+
+        public IActionResult Tables()
+        {
+            return View(); 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Tables(GraphViewModel formModel)
+        {
+
+            string date1 = formModel.Date1.ToString("dd-MM-yyyy hh:mm:ss");
+            string date2 = formModel.Date2.ToString("dd-MM-yyyy hh:mm:ss");
+
+            HttpResponseMessage response;
+
+            if (formModel.CustomerID == 0)
+            {
+                response = await WebApi.InitializeClient().GetAsync($"api/transactions/intable?date1={date1}&date2={date2}");
+            }
+            else
+            {
+                int id = formModel.CustomerID;
+                response = await WebApi.InitializeClient().GetAsync($"api/transactions/intablewithid?id={id}&date1={date1}&date2={date2}");
+            }
+
+            this.CheckDates(formModel.Date1, formModel.Date2);
+
+            if (!response.IsSuccessStatusCode || !ModelState.IsValid)
+            {
+                return View();
+            }
+
+            //gets the results of the transdatecount objs as JsonString
+            var result = response.Content.ReadAsStringAsync().Result;
+
+            //converts it to objects again 
+            var transactions = JsonConvert.DeserializeObject<List<Transaction>>(result);
+
+            return View(transactions); 
+        }
+
+
+
+        //helper methods
         private async Task<List<Customer>> GetCustomers()
         {
             var response = await WebApi.InitializeClient().GetAsync("api/customers");
