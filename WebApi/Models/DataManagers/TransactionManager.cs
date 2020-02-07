@@ -108,19 +108,29 @@ namespace WebApi.Models.DataManagers
             return transDateCount;
         }
 
-        public IEnumerable<Transaction> GetTableAll(DateTime date1, DateTime date2)
+        public IEnumerable<TransactionView> GetTableAll(DateTime date1, DateTime date2)
         {
             date1 = date1.ToUniversalTime();
             date2 = date2.ToUniversalTime();
 
             var transactions = _context.Transaction.
                 Where(x => x.ModifyDate >= date1 && x.ModifyDate <= date2).
-               ToList();
+                Select(x => new TransactionView
+                {
+                   TransactionId = x.TransactionId,
+                   TransactionType = x.TransactionType,
+                   AccountNumber = x.AccountNumber,
+                   DestinationAccountNumber = x.DestinationAccountNumber,
+                   Amount = x.Amount,
+                   Comment = x.Comment,
+                   ModifyDate = x.ModifyDate
+                }).
+                ToList();
             return transactions; 
         }
 
 
-        public IEnumerable<Transaction> GetTable(int id, DateTime date1, DateTime date2)
+        public IEnumerable<TransactionView> GetTable(int id, DateTime date1, DateTime date2)
         {
             date1 = date1.ToUniversalTime();
             date2 = date2.ToUniversalTime();
@@ -128,7 +138,18 @@ namespace WebApi.Models.DataManagers
             var transactions = _context.Transaction.
                 Include(x => x.AccountNumberNavigation).
                 ThenInclude(a => a.Customer).
-                Where(x => x.AccountNumberNavigation.CustomerId == id && x.ModifyDate >= date1 && x.ModifyDate <= date2).ToList();
+                Where(x => x.AccountNumberNavigation.CustomerId == id && x.ModifyDate >= date1 && x.ModifyDate <= date2).
+                Select(x => new TransactionView
+                { 
+                    TransactionId = x.TransactionId, 
+                    TransactionType = x.TransactionType,
+                    AccountNumber = x.AccountNumber, 
+                    DestinationAccountNumber = x.DestinationAccountNumber, 
+                    Amount = x.Amount,
+                    Comment = x.Comment, 
+                    ModifyDate = x.ModifyDate
+                }).
+                ToList();
             return transactions;
         }
     }

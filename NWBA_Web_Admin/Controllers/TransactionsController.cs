@@ -84,7 +84,7 @@ namespace NWBA_Web_Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IEnumerable<Transaction>> Tables(GraphViewModel formModel)
+        public async Task<IEnumerable<TransactionView>> Tables(GraphViewModel formModel)
         {
 
             string date1 = formModel.Date1.ToString("dd-MM-yyyy hh:mm:ss");
@@ -113,7 +113,7 @@ namespace NWBA_Web_Admin.Controllers
             var result = response.Content.ReadAsStringAsync().Result;
 
             //converts it to objects again 
-            var transactions = JsonConvert.DeserializeObject<List<Transaction>>(result);
+            var transactions = JsonConvert.DeserializeObject<List<TransactionView>>(result);
             return transactions;
         }
 

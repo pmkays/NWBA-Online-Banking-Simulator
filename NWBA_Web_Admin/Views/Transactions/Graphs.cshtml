@@ -35,9 +35,9 @@
                 <span asp-validation-for="Date2" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="GraphType" class="control-label"> Graph Type:</label>
+                <label asp-for="GraphType" class="control-label">Data</label>
                 <select id="graphType" asp-for="GraphType" class="form-control">
-                    <option value="bar">Bar</option>
+                    <option value="bar">Transactions per day (Bar)</option>
                     <option value="pie">Pie</option>
                     <option value="line">Line</option>
                 </select>
@@ -50,8 +50,9 @@
 </div>
 
 <div class="container">
-    <button id ="button" style="display:none">View corresponding table</button>
-    <table></table>
+    <button id ="button" class="btn btn-primary" style="display:none">View corresponding table</button>
+    <hr>
+    <table class="table"></table>
 </div>
 
 <div class="container">
@@ -82,7 +83,7 @@
             }
 
             const transactionChart = new Chart(canvas, {
-                type: document.getElementById("graphType").value,
+                type: "bar",
                 data: {
                     labels: labels,
                     datasets: [{
@@ -105,27 +106,25 @@
                 }
             });
         });
-        document.getElementById("button").style = "display:block";
+        document.getElementById("button").style = "display:inline";
     })
 </script>
 <script>
     document.getElementById("button").onclick = generateTableView;
 
     function generateTableView() {
-        console.log("Made it!")
 
         var f = $('#form');
 
         var serializedForm = f.serializeArray();
 
         $.post("https://localhost:44317/transactions/tables", serializedForm, function (transactions) {
-            console.log("Successfully returned from controller")
-            console.log(transactions); 
+            console.log("Successfully returned from controller"); 
             //set up variables to use throughout code
             var trans = transactions;
             let table = document.querySelector("table");
             console.log(trans);
-            let headers = Object.keys(trans[0]);
+            let headers = ["Transaction ID", "Transaction Type", "Account", "Destination Account", "Amount", "Comment", "Time" ]
 
             //create first head and row for first line
             let thead = table.createTHead();
@@ -148,11 +147,16 @@
                     //insert individual cell
                     let cell = row.insertCell();
                     //insert text in that cell
-                    let text = document.createTextNode(element[key]);
+                    var text = "";
+                    if (element[key] == null) {
+                        text = document.createTextNode("N/A");
+                    }
+                    else {
+                        text = document.createTextNode(element[key]);
+                    }                  
                     cell.appendChild(text);
                 }
             }
-            console.log("table finished??")
         })
     }
 </script>
