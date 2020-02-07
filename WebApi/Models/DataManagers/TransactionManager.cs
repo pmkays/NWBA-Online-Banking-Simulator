@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Data;
 using WebApi.Models.DataRepository;
+using WebApi.Models.ViewModels;
 
 namespace WebApi.Models.DataManagers
 {
@@ -45,6 +46,62 @@ namespace WebApi.Models.DataManagers
             _context.Transaction.Update(item);
             _context.SaveChanges();
             return id;
+        }
+
+        public IEnumerable<TransTypeDateCount> GetPieAll(DateTime date1, DateTime date2)
+        {
+            date1 = date1.ToUniversalTime();
+            date2 = date2.ToUniversalTime();
+
+            var transactionTypes = _context.Transaction.
+                Where(x => x.ModifyDate >= date1 && x.ModifyDate <= date2.AddDays(1)).
+                GroupBy(x => x.TransactionType).
+                Select(x => new TransTypeDateCount
+                {
+                    Type = x.Key,
+                    Count = x.Count()
+                }).
+                ToList();
+
+            return transactionTypes; 
+        }
+
+        public IEnumerable<TransTypeDateCount> GetPie(DateTime date1, DateTime date2)
+        {
+            date1 = date1.ToUniversalTime();
+            date2 = date2.ToUniversalTime();
+
+            var transactionTypes = _context.Transaction.
+                Where(x => x.ModifyDate >= date1 && x.ModifyDate <= date2.AddDays(1)).
+                GroupBy(x => x.TransactionType).
+                Select(x => new TransTypeDateCount
+                {
+                    Type = x.Key,
+                    Count = x.Count()
+                }).
+                ToList();
+
+            return transactionTypes;
+        }
+
+        public IEnumerable<TransTypeDateCount> GetPie(int id, DateTime date1, DateTime date2)
+        {
+            date1 = date1.ToUniversalTime();
+            date2 = date2.ToUniversalTime();
+
+            var amount = _context.Transaction.
+                Include(x => x.AccountNumberNavigation).
+                ThenInclude(a => a.Customer).
+                Where(x => x.AccountNumberNavigation.CustomerId == id && x.ModifyDate >= date1 && x.ModifyDate <= date2.AddDays(1)).
+                GroupBy(x => x.TransactionType).
+                Select(x => new TransTypeDateCount
+                {
+                    Type = x.Key,
+                    Count = x.Count()
+                }).
+                ToList();
+
+            return amount;
         }
 
         public IEnumerable<TransDateCount> GetRangeAll(DateTime date1, DateTime date2)
@@ -111,19 +168,19 @@ namespace WebApi.Models.DataManagers
         public IEnumerable<TransactionView> GetTableAll(DateTime date1, DateTime date2)
         {
             date1 = date1.ToUniversalTime();
-            date2 = date2.ToUniversalTime();
+            date2 = date2.ToUniversalTime().AddDays(1);
 
             var transactions = _context.Transaction.
                 Where(x => x.ModifyDate >= date1 && x.ModifyDate <= date2).
                 Select(x => new TransactionView
                 {
-                   TransactionId = x.TransactionId,
-                   TransactionType = x.TransactionType,
-                   AccountNumber = x.AccountNumber,
-                   DestinationAccountNumber = x.DestinationAccountNumber,
-                   Amount = x.Amount,
-                   Comment = x.Comment,
-                   ModifyDate = x.ModifyDate
+                    TransactionId = x.TransactionId,
+                    TransactionType = x.TransactionType,
+                    AccountNumber = x.AccountNumber,
+                    DestinationAccountNumber = x.DestinationAccountNumber,
+                    Amount = x.Amount,
+                    Comment = x.Comment,
+                    ModifyDate = x.ModifyDate.ToLocalTime()
                 }).
                 ToList();
             return transactions; 
@@ -133,7 +190,7 @@ namespace WebApi.Models.DataManagers
         public IEnumerable<TransactionView> GetTable(int id, DateTime date1, DateTime date2)
         {
             date1 = date1.ToUniversalTime();
-            date2 = date2.ToUniversalTime();
+            date2 = date2.ToUniversalTime().AddDays(1);
 ;
             var transactions = _context.Transaction.
                 Include(x => x.AccountNumberNavigation).
@@ -147,7 +204,7 @@ namespace WebApi.Models.DataManagers
                     DestinationAccountNumber = x.DestinationAccountNumber, 
                     Amount = x.Amount,
                     Comment = x.Comment, 
-                    ModifyDate = x.ModifyDate
+                    ModifyDate = x.ModifyDate.ToLocalTime()
                 }).
                 ToList();
             return transactions;
