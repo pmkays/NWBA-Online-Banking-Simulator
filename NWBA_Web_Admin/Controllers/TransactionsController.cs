@@ -66,7 +66,7 @@ namespace NWBA_Web_Admin.Controllers
 
             if (!response.IsSuccessStatusCode || !ModelState.IsValid)
             {
-                //what to return because you can't return the view
+                //nani
             }
 
             //gets the results of the transdatecount objs as JsonString
@@ -76,11 +76,6 @@ namespace NWBA_Web_Admin.Controllers
             var transPDay = JsonConvert.DeserializeObject<List<TransDateCount>>(result);
 
             return transPDay;
-        }
-
-        public IActionResult Tables()
-        {
-            return View(); 
         }
 
         [HttpPost]
@@ -117,7 +112,75 @@ namespace NWBA_Web_Admin.Controllers
             return transactions;
         }
 
+        [HttpPost]
+        public async Task<IEnumerable<TransTypeDateCount>> PieGraph(GraphViewModel formModel)
+        {
 
+            string date1 = formModel.Date1.ToString("dd-MM-yyyy hh:mm:ss");
+            string date2 = formModel.Date2.ToString("dd-MM-yyyy hh:mm:ss");
+
+            HttpResponseMessage response;
+
+            if (formModel.CustomerID == 0)
+            {
+                response = await WebApi.InitializeClient().GetAsync($"api/transactions/inpie?date1={date1}&date2={date2}");
+            }
+            else
+            {
+                int id = formModel.CustomerID;
+                response = await WebApi.InitializeClient().GetAsync($"api/transactions/inpiewithid?id={id}&date1={date1}&date2={date2}");
+            }
+
+            this.CheckDates(formModel.Date1, formModel.Date2);
+
+            if (!response.IsSuccessStatusCode || !ModelState.IsValid)
+            {
+                //nani
+            }
+
+            //gets the results of the transtypedatecount objs as JsonString
+            var result = response.Content.ReadAsStringAsync().Result;
+
+            //converts it to objects again 
+            var transTypes = JsonConvert.DeserializeObject<List<TransTypeDateCount>>(result);
+
+            return transTypes;
+        }
+
+        [HttpPost]
+        public async Task<IEnumerable<AmountDateCount>> LineGraph(GraphViewModel formModel)
+        {
+
+            string date1 = formModel.Date1.ToString("dd-MM-yyyy hh:mm:ss");
+            string date2 = formModel.Date2.ToString("dd-MM-yyyy hh:mm:ss");
+
+            HttpResponseMessage response;
+
+            if (formModel.CustomerID == 0)
+            {
+                response = await WebApi.InitializeClient().GetAsync($"api/transactions/inline?date1={date1}&date2={date2}");
+            }
+            else
+            {
+                int id = formModel.CustomerID;
+                response = await WebApi.InitializeClient().GetAsync($"api/transactions/inlinewithid?id={id}&date1={date1}&date2={date2}");
+            }
+
+            this.CheckDates(formModel.Date1, formModel.Date2);
+
+            if (!response.IsSuccessStatusCode || !ModelState.IsValid)
+            {
+                //nani
+            }
+
+            //gets the results of the amountdatecount objs as JsonString
+            var result = response.Content.ReadAsStringAsync().Result;
+
+            //converts it to objects again 
+            var amountDates = JsonConvert.DeserializeObject<List<AmountDateCount>>(result);
+
+            return amountDates;
+        }
 
         //helper methods
         private async Task<List<Customer>> GetCustomers()
@@ -142,7 +205,5 @@ namespace NWBA_Web_Admin.Controllers
             }
 
         }
-
-
     }
 }

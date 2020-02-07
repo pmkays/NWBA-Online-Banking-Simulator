@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 using WebApi.Models.DataManagers;
+using WebApi.Models.ViewModels;
 
 namespace WebApi.Controllers
 {
@@ -66,6 +67,32 @@ namespace WebApi.Controllers
         public IEnumerable<TransDateCount> GetRange(int id, string date1, string date2)
         {
             return _repo.GetRange(id, DateTime.Parse(date1), DateTime.Parse(date2));
+        }
+
+        [HttpGet("inpie")]
+        public IEnumerable<TransTypeDateCount> GetPieAll(string date1, string date2)
+        {
+            return _repo.GetPieAll(DateTime.Parse(date1), DateTime.Parse(date2));
+
+        }
+
+        [HttpGet("inpiewithid")]
+        public IEnumerable<TransTypeDateCount> GetPie(int id, string date1, string date2)
+        {
+            return _repo.GetPie(id, DateTime.Parse(date1), DateTime.Parse(date2));
+        }
+
+        [HttpGet("inline")]
+        public IEnumerable<AmountDateCount> GetLineAll(string date1, string date2)
+        {
+            return _repo.GetLineAll(DateTime.Parse(date1), DateTime.Parse(date2));
+
+        }
+
+        [HttpGet("inlinewithid")]
+        public IEnumerable<AmountDateCount> GetLine(int id, string date1, string date2)
+        {
+            return _repo.GetLine(id, DateTime.Parse(date1), DateTime.Parse(date2));
         }
 
         [HttpGet("intable")]

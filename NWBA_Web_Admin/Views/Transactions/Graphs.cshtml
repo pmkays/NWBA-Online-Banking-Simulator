@@ -26,20 +26,20 @@
             </div>
             <div class="form-group">
                 <label asp-for="Date1" class="control-label">From: </label>
-                <input asp-for="Date1" class="form-control" />
+                <input type ="date" asp-for="Date1" class="form-control" />
                 <span asp-validation-for="Date1" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Date2" class="control-label">To: </label>
-                <input asp-for="Date2" class="form-control" />
+                <input type ="date" asp-for="Date2" class="form-control" />
                 <span asp-validation-for="Date2" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="GraphType" class="control-label">Data</label>
                 <select id="graphType" asp-for="GraphType" class="form-control">
                     <option value="bar">Transactions per day (Bar)</option>
-                    <option value="pie">Pie</option>
-                    <option value="line">Line</option>
+                    <option value="pie">Proportion of transaction types (Pie)</option>
+                    <option value="line">Amount deposited per day (Line)</option>
                 </select>
             </div>
             <div class="form-group">
@@ -50,7 +50,7 @@
 </div>
 
 <div class="container">
-    <button id ="button" class="btn btn-primary" style="display:none">View corresponding table</button>
+    <button id ="button" class="btn btn-primary" style="display:none">View transactions in this time period</button>
     <hr>
     <table class="table"></table>
 </div>
@@ -71,41 +71,123 @@
         var f = $('#form');
 
         var serializedForm = f.serializeArray();
-        $.post("https://localhost:44317/transactions/graphs", serializedForm, function (transactionDates) {
-            var object = transactionDates;
+        if (document.getElementById("graphType").value == "bar") {
+            $.post("https://localhost:44317/transactions/graphs", serializedForm, function (transactionDates) {
+                var object = transactionDates;
 
-            const labels = [];
-            const data = [];
-            for (let x of object) {
-                var formattedDate = x.date.substring(0, 10);
-                labels.push(formattedDate);
-                data.push({ t: moment(x.date, 'L').toDate(), y: x.count });
-            }
-
-            const transactionChart = new Chart(canvas, {
-                type: "bar",
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: "Transaction count",
-                        data: data,
-                        options: {
-                            scales: {
-                                xAxes: [{
-                                    type: "time",
-                                    time: {
-                                        unit: "day"
-                                    }
-                                }]
-                            }
-                        },
-                        backgroundColor: "rgba(255, 99, 132, 0.2)",
-                        borderColor: "rgba(255, 99, 132, 1)",
-                        borderWidth: 1
-                    }]
+                const labels = [];
+                const data = [];
+                for (let x of object) {
+                    var formattedDate = x.date.substring(0, 10);
+                    labels.push(formattedDate);
+                    data.push({ t: moment(x.date, 'L').toDate(), y: x.count });
                 }
+
+                const transactionChart = new Chart(canvas, {
+                    type: "bar",
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: "Transaction count",
+                            data: data,
+                            options: {
+                                scales: {
+                                    xAxes: [{
+                                        type: "time",
+                                        time: {
+                                            unit: "day"
+                                        }
+                                    }]
+                                }
+                            },
+                            backgroundColor: "rgba(255, 99, 132, 0.2)",
+                            borderColor: "rgba(255, 99, 132, 1)",
+                            borderWidth: 1
+                        }]
+                    }
+                });
             });
-        });
+        }
+        else if (document.getElementById("graphType").value == "pie") {
+            $.post("https://localhost:44317/transactions/piegraph", serializedForm, function (transactionDates) {
+                var object = transactionDates;
+                console.log(transactionDates);
+
+                const labels = [];
+                const data = [];
+                for (let x of object) {
+                    var typeDisplay; 
+                    switch(x.type)
+                    {
+                        case ("D"):
+                            typeDisplay = "Deposit"; 
+                            break;
+                        case ("W"):
+                            typeDisplay = "Withdrawal"; 
+                            break;
+                        case ("T"):
+                            typeDisplay = "Transfer"; 
+                            break;
+                        case ("B"):
+                            typeDisplay = "Billpay"; 
+                            break;
+                    }
+                    labels.push(typeDisplay);
+                    data.push(x.count);
+                }
+
+                const transactionChart = new Chart(canvas, {
+                    type: "doughnut",
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: data,
+                            backgroundColor: "rgba(255, 99, 132, 0.2)",
+                            borderColor: "rgba(255, 99, 132, 1)",
+                            borderWidth: 1
+                        }]
+                    }
+                });
+            });
+        }
+        else {
+            $.post("https://localhost:44317/transactions/linegraph", serializedForm, function (transactionDates) {
+                var object = transactionDates;
+                console.log(object);
+                const labels = [];
+                const data = [];
+                for (let x of object) {
+                    var formattedDate = x.date.substring(0, 10);
+                    labels.push(formattedDate);
+                    data.push({ t: moment(x.date, 'L').toDate(), y: x.amount });
+                }
+
+                const transactionChart = new Chart(canvas, {
+                    type: "line",
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: "Amount deposited",
+                            data: data,
+                            options: {
+                                scales: {
+                                    xAxes: [{
+                                        type: "time",
+                                        time: {
+                                            unit: "day"
+                                        }
+                                    }]
+                                }
+                            },
+                            backgroundColor: "rgba(255, 99, 132, 0.2)",
+                            borderColor: "rgba(255, 99, 132, 1)",
+                            borderWidth: 1
+                        }]
+                    }
+                });
+            });
+            console.log("success")
+        }
         document.getElementById("button").style = "display:inline";
     })
 </script>
