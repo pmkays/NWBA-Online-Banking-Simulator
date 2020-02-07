@@ -82,6 +82,19 @@ namespace WebApi.Controllers
             return _repo.GetPie(id, DateTime.Parse(date1), DateTime.Parse(date2));
         }
 
+        [HttpGet("inline")]
+        public IEnumerable<AmountDateCount> GetLineAll(string date1, string date2)
+        {
+            return _repo.GetLineAll(DateTime.Parse(date1), DateTime.Parse(date2));
+
+        }
+
+        [HttpGet("inlinewithid")]
+        public IEnumerable<AmountDateCount> GetLine(int id, string date1, string date2)
+        {
+            return _repo.GetLine(id, DateTime.Parse(date1), DateTime.Parse(date2));
+        }
+
         [HttpGet("intable")]
         public IEnumerable<TransactionView> GetTableAll(string date1, string date2)
         {
