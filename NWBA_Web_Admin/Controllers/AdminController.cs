@@ -29,23 +29,13 @@ namespace NWBA_Web_Admin.Controllers
             if (userID == "admin" && password == "admin")
             {
                 HttpContext.Session.SetInt32("AdminPresent", 1);
-                return RedirectToAction("Portal");
+                return RedirectToAction("Index","Home");
             }
             else
             {
                 ModelState.AddModelError("LoginFailed", "Log in failed. Wrong username or password.");
             }
 
-            return View();
-        }
-
-        [Route("Portal")]
-        public ActionResult Portal()
-        {
-            if (!IsAdminLoggedOn())
-            {
-                return RedirectToAction("Index");
-            }
             return View();
         }
 
@@ -78,6 +68,9 @@ namespace NWBA_Web_Admin.Controllers
         [HttpGet("CustomerDetails/{id}")]
         public async Task<IActionResult> CustomerDetails(int id)
         {
+
+            HttpContext.Session.SetInt32("CurrentCustomer", id);
+
             var response = await WebApi.InitializeClient().GetAsync($"api/customers/{id}");
             var accounts = await WebApi.InitializeClient().GetAsync($"api/Accounts/AccountFromCustomer/{id}");
 
@@ -172,6 +165,39 @@ namespace NWBA_Web_Admin.Controllers
 
         }
 
+        [HttpGet("DeleteAccount/{id}")]
+        public async Task<IActionResult> DeleteAccount(int id)
+        {
+            var response = await WebApi.InitializeClient().GetAsync($"api/accounts/{id}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception();
+            }
+
+            // Storing the response details recieved from web api.
+            var result = response.Content.ReadAsStringAsync().Result;
+
+            // Deserializing the response recieved from web api and storing into a list.
+            var account = JsonConvert.DeserializeObject<Account>(result);
+
+            return View(account);
+        }
+
+        [HttpPost("DeleteAccountSuccess/{id}")]
+        public IActionResult DeleteAccountSuccess(int id)
+        {
+            var response = WebApi.InitializeClient().DeleteAsync($"api/Accounts/{id}").Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception();
+            }
+
+            return RedirectToAction("ViewCustomers");
+
+        }
+
         [HttpGet("ScheduledBillPays/{id}")]
         public async Task<IActionResult> ScheduledBillPays(int id)
         {
@@ -189,9 +215,42 @@ namespace NWBA_Web_Admin.Controllers
             var billPays = JsonConvert.DeserializeObject<List<BillPay>>(result);
 
             ViewBag.AccountID = id;
-            ViewBag.CustomerID = billPays[0].AccountNumberNavigation.CustomerId;
+            ViewBag.CustomerID = HttpContext.Session.GetInt32("CurrentCustomer");
 
             return View(billPays);
+        }
+
+        [HttpGet("DeleteBillPay/{id}")]
+        public async Task<IActionResult> DeleteBillPay(int id)
+        {
+            var response = await WebApi.InitializeClient().GetAsync($"api/billpays/{id}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception();
+            }
+
+            // Storing the response details recieved from web api.
+            var result = response.Content.ReadAsStringAsync().Result;
+
+            // Deserializing the response recieved from web api and storing into a list.
+            var billPay = JsonConvert.DeserializeObject<BillPay>(result);
+
+            return View(billPay);
+        }
+
+        [HttpPost("DeleteBillPaySuccess/{id}")]
+        public IActionResult DeleteBillPaySuccess(int id)
+        {
+            var response = WebApi.InitializeClient().DeleteAsync($"api/billpays/{id}").Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception();
+            }
+
+            return RedirectToAction("ViewCustomers");
+
         }
 
         [HttpGet("StatusUpdate/{id}")]

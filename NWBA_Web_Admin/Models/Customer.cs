@@ -14,7 +14,7 @@ namespace NWBA_Web_Admin.Models
 
         [Key]
         [Column("CustomerID")]
-        [Display(Name = "Customer ID")]
+        [Display(Name = "ID")]
         public int CustomerId { get; set; }
         [Required]
         [StringLength(50)]

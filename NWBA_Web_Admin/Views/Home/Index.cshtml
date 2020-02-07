@@ -1,8 +1,43 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div>
+    <div class="text-center">
+        <br>
+        <h3>National Wealth Bank of Australasia </h3>
+
+        <h1 class="display-4">Admin Portal</h1>
+        @{
+            bool loggedIn = Context.Session.GetInt32("AdminPresent").HasValue;
+        }
+        @if (!loggedIn)
+        {
+            <h6>Please log in to get started</h6><br>
+            <div class="main-body">
+                <img src="~/images/background.png" width="200" height="200" alt="cogwheel" />
+            </div>
+        }
+        else
+        {
+            <div class="main-body">
+                <img src="~/images/background.png" width="200" height="200" alt="cogwheel" />
+            </div>
+            <br />
+            <div>
+                <a asp-controller="Admin" asp-action="ViewCustomers"><button type="button" class="btn btn-primary btn-lg">View Customers</button></a> |
+
+                <a asp-controller="Transactions" asp-action="Graphs"><button type="button" class="btn btn-primary btn-lg">   Bank Statistics   </button></a>
+            </div>
+        }
+        <br>
+        <h4>Contact Us </h4>
+        <address>
+            Email: support@NWBA.com<br>
+            Phone: (03) 8675 4672<br>
+            56 Moonlight Way, Seymour, VIC, 3660
+        </address>
+    </div>
+
 </div>

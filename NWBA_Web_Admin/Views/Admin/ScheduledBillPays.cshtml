@@ -65,8 +65,9 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                <a asp-action="UnblockBlock" asp-route-id="@item.BillPayId">Block / Unblock</a> |
-                <a asp-action="EditBillPay" asp-route-id="@item.BillPayId">Edit</a> |
+                <a asp-action="UnblockBlock" asp-route-id="@item.BillPayId">Block / Unblock</a>
+            </td>
+            <td>
                 <a asp-action="DeleteBillPay" asp-route-id="@item.BillPayId">Delete</a>
             </td>
         </tr>

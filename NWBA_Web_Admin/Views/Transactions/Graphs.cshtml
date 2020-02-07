@@ -8,15 +8,15 @@
 </head>
 
 
-<h1>Graphs</h1>
+<h1>Statistics</h1>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-lg-3 col-md-4">
         <form id="form">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div id="destinationAccount" class="form-group">
                 <label asp-for="CustomerID" class="control-label"> Customer: </label>
-                <select asp-for="CustomerID" class="form-control">
+                <select id="customer-select" asp-for="CustomerID" class="form-control">
                     <option value="0"> All </option>
                     @foreach (var customer in (List<Customer>)ViewBag.AllCustomers)
                     {
@@ -26,12 +26,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Date1" class="control-label">From: </label>
-                <input type ="date" asp-for="Date1" class="form-control" />
+                <input type="date" asp-for="Date1" class="form-control" />
                 <span asp-validation-for="Date1" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Date2" class="control-label">To: </label>
-                <input type ="date" asp-for="Date2" class="form-control" />
+                <input type="date" asp-for="Date2" class="form-control" />
                 <span asp-validation-for="Date2" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -43,20 +43,23 @@
                 </select>
             </div>
             <div class="form-group">
-                <input id ="Submit" type="submit" value="View" class="btn btn-primary" />
+                <input id="Submit" type="submit" value="View" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
 
+
+
+    <div class="col-lg-9">
+        <canvas id="transactionChart"></canvas>
+    </div>
+</div>
 <div class="container">
-    <button id ="button" class="btn btn-primary" style="display:none">View transactions in this time period</button>
+    <br />
+    <hr />
+    <button id="button" class="btn btn-primary" style="display:none">Show statement of this time period</button>
     <hr>
-    <table class="table"></table>
-</div>
-
-<div class="container">
-    <canvas id="transactionChart"></canvas>
+    <table id="trans-table" class="table"></table>
 </div>
 
 <script src="~/js/Chart.js"></script>
@@ -79,6 +82,7 @@
                 const data = [];
                 for (let x of object) {
                     var formattedDate = x.date.substring(0, 10);
+                    
                     labels.push(formattedDate);
                     data.push({ t: moment(x.date, 'L').toDate(), y: x.count });
                 }
@@ -153,12 +157,15 @@
         else {
             $.post("https://localhost:44317/transactions/linegraph", serializedForm, function (transactionDates) {
                 var object = transactionDates;
-                console.log(object);
+                
                 const labels = [];
                 const data = [];
                 for (let x of object) {
+
                     var formattedDate = x.date.substring(0, 10);
                     labels.push(formattedDate);
+                    
+                    console.log(formattedDate);
                     data.push({ t: moment(x.date, 'L').toDate(), y: x.amount });
                 }
 
@@ -189,56 +196,71 @@
             console.log("success")
         }
         document.getElementById("button").style = "display:inline";
+        document.getElementById("trans-table").innerHTML = "";
     })
 </script>
 <script>
     document.getElementById("button").onclick = generateTableView;
 
+    document.getElementById("customer-select").onchange = clearTable;
+
+    function clearTable() {
+        document.getElementById("trans-table").innerHTML = "";
+        document.getElementById("button").innerHTML = "Show statement of this time period";
+        document.getElementById("button").style = "display:none";
+    }
+
     function generateTableView() {
+        if (document.getElementById("trans-table").innerHTML == "") {
+            document.getElementById("button").innerHTML = "Hide statement of this time period";
+            
+            var f = $('#form');
 
-        var f = $('#form');
+            var serializedForm = f.serializeArray();
 
-        var serializedForm = f.serializeArray();
+            $.post("https://localhost:44317/transactions/tables", serializedForm, function (transactions) {
+                console.log("Successfully returned from controller");
+                //set up variables to use throughout code
+                var trans = transactions;
+                let table = document.querySelector("table");
+                console.log(trans);
+                let headers = ["Transaction ID", "Transaction Type", "Account", "Destination Account", "Amount", "Comment", "Time"]
 
-        $.post("https://localhost:44317/transactions/tables", serializedForm, function (transactions) {
-            console.log("Successfully returned from controller"); 
-            //set up variables to use throughout code
-            var trans = transactions;
-            let table = document.querySelector("table");
-            console.log(trans);
-            let headers = ["Transaction ID", "Transaction Type", "Account", "Destination Account", "Amount", "Comment", "Time" ]
-
-            //create first head and row for first line
-            let thead = table.createTHead();
-            let row = thead.insertRow();
-            //generates the headers for each column
-            for (let key of headers) {
-                let th = document.createElement("th");
-                let text = document.createTextNode(key);
-                //put in text for each th cell
-                th.appendChild(text);
-                //put the th in the row
-                row.appendChild(th);
-            }
-
-            for (let element of trans) {
-                //insert a new row for each element
-                let row = table.insertRow();
-                //loops through each element one by one to individually put in the cells
-                for (key in element) {
-                    //insert individual cell
-                    let cell = row.insertCell();
-                    //insert text in that cell
-                    var text = "";
-                    if (element[key] == null) {
-                        text = document.createTextNode("N/A");
-                    }
-                    else {
-                        text = document.createTextNode(element[key]);
-                    }                  
-                    cell.appendChild(text);
+                //create first head and row for first line
+                let thead = table.createTHead();
+                let row = thead.insertRow();
+                //generates the headers for each column
+                for (let key of headers) {
+                    let th = document.createElement("th");
+                    let text = document.createTextNode(key);
+                    //put in text for each th cell
+                    th.appendChild(text);
+                    //put the th in the row
+                    row.appendChild(th);
                 }
-            }
-        })
+
+                for (let element of trans) {
+                    //insert a new row for each element
+                    let row = table.insertRow();
+                    //loops through each element one by one to individually put in the cells
+                    for (key in element) {
+                        //insert individual cell
+                        let cell = row.insertCell();
+                        //insert text in that cell
+                        var text = "";
+                        if (element[key] == null) {
+                            text = document.createTextNode("N/A");
+                        }
+                        else {
+                            text = document.createTextNode(element[key]);
+                        }
+                        cell.appendChild(text);
+                    }
+                }
+            })
+        } else {
+            document.getElementById("trans-table").innerHTML = "";
+            document.getElementById("button").innerHTML = "Show statement of this time period";
+        }
     }
 </script>

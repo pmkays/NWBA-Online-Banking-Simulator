@@ -108,7 +108,7 @@
                     @Html.DisplayFor(modelItem => account.Balance)
                 </td>
                 <td>
-                    <a asp-controller="Transactions" asp-action="Graphs" asp-route-id="@account.AccountNumber">Statement</a> |
+                    <a asp-controller="Transactions" asp-action="Graphs" asp-route-id="@account.CustomerId">Statement</a> |
                     <a asp-action="ScheduledBillPays" asp-route-id="@account.AccountNumber">Scheduled Payments</a> |
                     <a asp-action="DeleteAccount" asp-route-id="@account.AccountNumber">Delete</a>
                 </td>

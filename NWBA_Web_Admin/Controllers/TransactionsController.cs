@@ -32,9 +32,13 @@ namespace NWBA_Web_Admin.Controllers
             return View(transactions);
         }
 
-        public async Task<IActionResult> Graphs()
+        public async Task<IActionResult> Graphs(int? id)
         {
             GraphViewModel formModel = new GraphViewModel();
+            if(id != null)
+            {
+                formModel.CustomerID = (int)id;
+            }
             formModel.Date1 = DateTime.Parse("19/12/2019");
             formModel.Date2 = DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy"));
 

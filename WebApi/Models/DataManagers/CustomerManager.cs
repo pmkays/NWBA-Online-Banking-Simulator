@@ -37,7 +37,7 @@ namespace WebApi.Models.DataManagers
 
         public IEnumerable<Customer> GetAll()
         {
-            return _context.Customer.Include(x => x.Account).ToList();
+            return _context.Customer.Include(x => x.Account).Include(x => x.Login).ToList();
         }
 
         public int Update(int id, Customer item)
