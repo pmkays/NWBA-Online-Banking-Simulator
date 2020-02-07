@@ -112,12 +112,11 @@ namespace WebApi.Models.DataManagers
         {
             date1 = date1.ToUniversalTime();
             date2 = date2.ToUniversalTime();
-            //instantiate an array of new transaction date count objects
 
-            DateTime dayAfter = date1.AddDays(1);
-            return _context.Transaction.
-                Where(x => x.ModifyDate >= date1 && x.ModifyDate <= dayAfter).
+            var transactions = _context.Transaction.
+                Where(x => x.ModifyDate >= date1 && x.ModifyDate <= date2).
                ToList();
+            return transactions; 
         }
 
 
@@ -125,12 +124,12 @@ namespace WebApi.Models.DataManagers
         {
             date1 = date1.ToUniversalTime();
             date2 = date2.ToUniversalTime();
-
-            DateTime dayAfter = date1.AddDays(1);
-            return _context.Transaction.
+;
+            var transactions = _context.Transaction.
                 Include(x => x.AccountNumberNavigation).
                 ThenInclude(a => a.Customer).
-                Where(x => x.AccountNumberNavigation.CustomerId == id && x.ModifyDate >= date1 && x.ModifyDate <= dayAfter).ToList();
+                Where(x => x.AccountNumberNavigation.CustomerId == id && x.ModifyDate >= date1 && x.ModifyDate <= date2).ToList();
+            return transactions;
         }
     }
 }

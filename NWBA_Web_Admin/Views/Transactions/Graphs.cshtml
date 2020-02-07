@@ -37,7 +37,6 @@
             <div class="form-group">
                 <label asp-for="GraphType" class="control-label"> Graph Type:</label>
                 <select id="graphType" asp-for="GraphType" class="form-control">
-                    <option value="table">Table</option>
                     <option value="bar">Bar</option>
                     <option value="pie">Pie</option>
                     <option value="line">Line</option>
@@ -50,62 +49,110 @@
     </div>
 </div>
 
-    <div class="container">
-        <canvas id="transactionChart"></canvas>
-    </div>
-    <script src="~/js/Chart.js"></script>
-    <script src="~/js/moment.js"></script>
-    <script src ="~/js/jquery-3.4.1.js"></script>
-    <script>
-        var canvas = document.getElementById("transactionChart").getContext("2d");
-        $("#form").submit(function (e) {
-            //so ajax can be called
-            e.preventDefault();
+<div class="container">
+    <button id ="button" style="display:none">View corresponding table</button>
+    <table></table>
+</div>
 
-            var f = $('#form');
+<div class="container">
+    <canvas id="transactionChart"></canvas>
+</div>
 
-            var serializedForm = f.serializeArray();
-            if (document.getElementById("graphType").value != "table") {
-                $.post("https://localhost:44331/transactions/graphs", serializedForm, function (transactionDates) {
-                    var object = transactionDates;
+<script src="~/js/Chart.js"></script>
+<script src="~/js/moment.js"></script>
+<script src ="~/js/jquery-3.4.1.js"></script>
+<script>
+    var canvas = document.getElementById("transactionChart").getContext("2d");
+    $("#form").submit(function (e) {
+        //so ajax can be called
+        e.preventDefault();
 
-                    console.log(object);
+        var f = $('#form');
 
-                    const labels = [];
-                    const data = [];
-                    for (let x of object) {
-                        var formattedDate = x.date.substring(0, 10);
-                        labels.push(formattedDate);
-                        data.push({ t: moment(x.date, 'L').toDate(), y: x.count });
-                    }
+        var serializedForm = f.serializeArray();
+        $.post("https://localhost:44317/transactions/graphs", serializedForm, function (transactionDates) {
+            var object = transactionDates;
 
-                    const transactionChart = new Chart(canvas, {
-                        type: document.getElementById("graphType").value,
-                        data: {
-                            labels: labels,
-                            datasets: [{
-                                label: "Transaction count",
-                                data: data,
-                                options: {
-                                    scales: {
-                                        xAxes: [{
-                                            type: "time",
-                                            time: {
-                                                unit: "day"
-                                            }
-                                        }]
-                                    }
-                                },
-                                backgroundColor: "rgba(255, 99, 132, 0.2)",
-                                borderColor: "rgba(255, 99, 132, 1)",
-                                borderWidth: 1
-                            }]
-                        }
-                    });
-                });
-            } else {
-                $.post("https://localhost:44331/transactions/tables", serializedForm); 
+            const labels = [];
+            const data = [];
+            for (let x of object) {
+                var formattedDate = x.date.substring(0, 10);
+                labels.push(formattedDate);
+                data.push({ t: moment(x.date, 'L').toDate(), y: x.count });
             }
-        })
-    </script>
 
+            const transactionChart = new Chart(canvas, {
+                type: document.getElementById("graphType").value,
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: "Transaction count",
+                        data: data,
+                        options: {
+                            scales: {
+                                xAxes: [{
+                                    type: "time",
+                                    time: {
+                                        unit: "day"
+                                    }
+                                }]
+                            }
+                        },
+                        backgroundColor: "rgba(255, 99, 132, 0.2)",
+                        borderColor: "rgba(255, 99, 132, 1)",
+                        borderWidth: 1
+                    }]
+                }
+            });
+        });
+        document.getElementById("button").style = "display:block";
+    })
+</script>
+<script>
+    document.getElementById("button").onclick = generateTableView;
+
+    function generateTableView() {
+        console.log("Made it!")
+
+        var f = $('#form');
+
+        var serializedForm = f.serializeArray();
+
+        $.post("https://localhost:44317/transactions/tables", serializedForm, function (transactions) {
+            console.log("Successfully returned from controller")
+            console.log(transactions); 
+            //set up variables to use throughout code
+            var trans = transactions;
+            let table = document.querySelector("table");
+            console.log(trans);
+            let headers = Object.keys(trans[0]);
+
+            //create first head and row for first line
+            let thead = table.createTHead();
+            let row = thead.insertRow();
+            //generates the headers for each column
+            for (let key of headers) {
+                let th = document.createElement("th");
+                let text = document.createTextNode(key);
+                //put in text for each th cell
+                th.appendChild(text);
+                //put the th in the row
+                row.appendChild(th);
+            }
+
+            for (let element of trans) {
+                //insert a new row for each element
+                let row = table.insertRow();
+                //loops through each element one by one to individually put in the cells
+                for (key in element) {
+                    //insert individual cell
+                    let cell = row.insertCell();
+                    //insert text in that cell
+                    let text = document.createTextNode(element[key]);
+                    cell.appendChild(text);
+                }
+            }
+            console.log("table finished??")
+        })
+    }
+</script>
