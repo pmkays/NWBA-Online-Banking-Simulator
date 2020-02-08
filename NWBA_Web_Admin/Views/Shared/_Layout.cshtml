@@ -28,13 +28,16 @@
                         @if (adminLoggedIn)
                         {
                             <li class="nav-item">
+                                <a class="nav-link" asp-controller="Customers" asp-action="ViewCustomers">Customers</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Transactions" asp-action="Graphs">Statistics</a>
                             </li>
                             <li class="d-sm-inline-flex flex-sm-row-reverse ml-auto">
                                 <a class="nav-link" asp-controller="Admin" asp-action="Logout">Log Out</a>
                                 <span class="nav-link">
                                     <!--This calls the session id's name-->
-                                    Welcome home Master Admin!
+                                    Welcome Admin!
                                 </span>
                             </li>
 

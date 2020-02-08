@@ -11,9 +11,9 @@ using NWBA_Web_Admin.Models.ViewModels;
 
 namespace NWBA_Web_Admin.Controllers
 {
+    [Route("RestrictedTransactionAccess")]
     public class TransactionsController : Controller
     {
-        // GET: Transactions
         public async Task<IActionResult> Index()
         {
             var response = await WebApi.InitializeClient().GetAsync("api/transactions");

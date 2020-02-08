@@ -45,6 +45,6 @@
     
     <form asp-action="DeleteAccountSuccess">
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="CustomerDetails" asp-route-id ="@Model.CustomerId">Back to Customer Details</a>
+        <a asp-controller="Customers" asp-action="CustomerDetails" asp-route-id ="@Model.CustomerId">Back to Customer Details</a>
     </form>
 </div>
