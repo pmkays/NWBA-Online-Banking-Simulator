@@ -79,6 +79,11 @@ namespace NWBA_Web_Admin.Controllers
             //converts it to objects again 
             var transPDay = JsonConvert.DeserializeObject<List<TransDateCount>>(result);
 
+            foreach (TransDateCount trans in transPDay)
+            {
+                trans.Date = DateTime.Parse(trans.Date.ToString("dd/MM/yy"));
+            }
+
             return transPDay;
         }
 
@@ -170,9 +175,7 @@ namespace NWBA_Web_Admin.Controllers
                 response = await WebApi.InitializeClient().GetAsync($"api/transactions/inlinewithid?id={id}&date1={date1}&date2={date2}");
             }
 
-            this.CheckDates(formModel.Date1, formModel.Date2);
-
-            if (!response.IsSuccessStatusCode || !ModelState.IsValid)
+            if (!response.IsSuccessStatusCode)
             {
                 //nani
             }
@@ -182,6 +185,11 @@ namespace NWBA_Web_Admin.Controllers
 
             //converts it to objects again 
             var amountDates = JsonConvert.DeserializeObject<List<AmountDateCount>>(result);
+
+            foreach (AmountDateCount amountDate in amountDates)
+            {
+                amountDate.Date = DateTime.Parse(amountDate.Date.ToString("dd/MM/yy"));
+            }
 
             return amountDates;
         }

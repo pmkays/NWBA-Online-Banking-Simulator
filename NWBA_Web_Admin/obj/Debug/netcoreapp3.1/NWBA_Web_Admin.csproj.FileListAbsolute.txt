@@ -295,7 +295,6 @@ C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\n
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\Razor\Views\Admin\DeleteCustomer.cshtml.g.cs
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\Razor\Views\Admin\EditCustomer.cshtml.g.cs
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Index.cshtml.g.cs
-C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Portal.cshtml.g.cs
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\Razor\Views\Admin\ViewCustomers.cshtml.g.cs
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\NWBA_Web_Admin.csprojAssemblyReference.cache
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\Razor\Views\Admin\ScheduledBillPays.cshtml.g.cs
@@ -303,3 +302,5 @@ C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\n
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\NWBA_Web_Admin.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\Razor\Views\Admin\DeleteAccount.cshtml.g.cs
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\Razor\Views\Admin\DeleteBillPay.cshtml.g.cs
+C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\Razor\Views\Admin\DeleteAccount.cshtml.g.cs
+C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\Razor\Views\Admin\DeleteBillPay.cshtml.g.cs
