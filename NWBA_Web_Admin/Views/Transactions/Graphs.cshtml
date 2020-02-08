@@ -82,7 +82,7 @@
 
         var serializedForm = f.serializeArray();
         if (document.getElementById("graphType").value == "bar") {
-            $.post("https://localhost:44317/transactions/graphs", serializedForm, function (transactionDates) {
+            $.post("https://localhost:44317/transactions/bargraph", serializedForm, function (transactionDates) {
                 var object = transactionDates;
                 const labels = [];
                 const data = [];

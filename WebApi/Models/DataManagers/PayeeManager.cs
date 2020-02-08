@@ -16,6 +16,8 @@ namespace WebApi.Models.DataManagers
         {
             _context = context;
         }
+
+        //adds a payee
         public int Add(Payee item)
         {
             _context.Payee.Add(item);
@@ -23,6 +25,7 @@ namespace WebApi.Models.DataManagers
             return item.PayeeId;
         }
 
+        //deletes a payee
         public int Delete(int id)
         {
             _context.Payee.Remove(this.Get(id));
@@ -30,16 +33,19 @@ namespace WebApi.Models.DataManagers
             return id;
         }
 
+        //gets a specific payee
         public Payee Get(int id)
         {
             return _context.Payee.Include(x => x.BillPay).FirstOrDefault(x => x.PayeeId == id);
         }
 
+        //gets all payees
         public IEnumerable<Payee> GetAll()
         {
             return _context.Payee.Include(x => x.BillPay).ToList();
         }
 
+        //deletes a specific payee
         public int Update(int id, Payee item)
         {
             _context.Payee.Update(item);

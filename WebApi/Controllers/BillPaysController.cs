@@ -34,6 +34,7 @@ namespace WebApi.Controllers
             return _repo.Get(id);
         }
 
+        //GET: api/BillPaysFromAccount/5
         [HttpGet("BillPaysFromAccount/{id}")]
         public IEnumerable<BillPay> BillPaysFromAccount(int id)
         {

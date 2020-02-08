@@ -16,6 +16,8 @@ namespace WebApi.Models.DataManagers
         {
             _context = context;
         }
+
+        //adds a customer
         public int Add(Customer item)
         {
             _context.Customer.Add(item);
@@ -23,6 +25,7 @@ namespace WebApi.Models.DataManagers
             return item.CustomerId;
         }
 
+        //deletes a customer
         public int Delete(int id)
         {
             _context.Customer.Remove(this.Get(id));
@@ -30,16 +33,19 @@ namespace WebApi.Models.DataManagers
             return id;
         }
 
+        //gets a customer
         public Customer Get(int id)
         {
            return _context.Customer.Include(x => x.Account).Include(x=>x.Login).FirstOrDefault(x => x.CustomerId == id);
         }
 
+        //gets all customers
         public IEnumerable<Customer> GetAll()
         {
             return _context.Customer.Include(x => x.Account).Include(x => x.Login).ToList();
         }
 
+        //updates a specific customer
         public int Update(int id, Customer item)
         {
             _context.Customer.Update(item);
