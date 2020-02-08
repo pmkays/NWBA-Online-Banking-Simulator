@@ -140,7 +140,6 @@ C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\bin\Debug\n
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Debug.dll
-C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\Razor\Views\Transactions\Index.cshtml.g.cs
 C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\Razor\Views\Transactions\Graphs.cshtml.g.cs
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\staticwebassets\NWBA_Web_Admin.StaticWebAssets.Manifest.cache
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\staticwebassets\NWBA_Web_Admin.StaticWebAssets.xml

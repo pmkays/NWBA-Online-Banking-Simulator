@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using NWBA_Web_Admin.Filters;
 using NWBA_Web_Admin.Models;
 using NWBA_Web_Admin.Models.ViewModels;
 
 namespace NWBA_Web_Admin.Controllers
 {
+    [AuthorisationFilter]
     [Route("RestrictedCustomerAccess")]
     public class CustomersController : Controller
     {

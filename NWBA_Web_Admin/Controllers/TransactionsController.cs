@@ -6,32 +6,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using NWBA_Web_Admin.Filters;
 using NWBA_Web_Admin.Models;
 using NWBA_Web_Admin.Models.ViewModels;
 
 namespace NWBA_Web_Admin.Controllers
 {
+    [AuthorisationFilter]
     [Route("RestrictedTransactionAccess")]
     public class TransactionsController : Controller
     {
-        public async Task<IActionResult> Index()
-        {
-            var response = await WebApi.InitializeClient().GetAsync("api/transactions");
-
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception();
-            }
-
-            // Storing the response details recieved from web api.
-            var result = response.Content.ReadAsStringAsync().Result;
-
-            // Deserializing the response recieved from web api and storing into a list.
-            var transactions = JsonConvert.DeserializeObject<List<Transaction>>(result);
-
-            return View(transactions);
-        }
-
+        [HttpGet("Graphs")]
         public async Task<IActionResult> Graphs(int? id)
         {
             GraphViewModel formModel = new GraphViewModel();
@@ -47,7 +32,7 @@ namespace NWBA_Web_Admin.Controllers
             return View(formModel);
         }
 
-        [HttpPost]
+        [HttpPost("BarGraph")]
         public async Task<IEnumerable<TransDateCount>> BarGraph(GraphViewModel formModel)
         {
 
@@ -85,7 +70,7 @@ namespace NWBA_Web_Admin.Controllers
             return transPDay;
         }
 
-        [HttpPost]
+        [HttpPost("Tables")]
         public async Task<IEnumerable<TransactionView>> Tables(GraphViewModel formModel)
         {
 
@@ -117,7 +102,7 @@ namespace NWBA_Web_Admin.Controllers
             return transactions;
         }
 
-        [HttpPost]
+        [HttpPost("PieGraph")]
         public async Task<IEnumerable<TransTypeDateCount>> PieGraph(GraphViewModel formModel)
         {
 
@@ -150,7 +135,7 @@ namespace NWBA_Web_Admin.Controllers
             return transTypes;
         }
 
-        [HttpPost]
+        [HttpPost("LineGraph")]
         public async Task<IEnumerable<AmountDateCount>> LineGraph(GraphViewModel formModel)
         {
 

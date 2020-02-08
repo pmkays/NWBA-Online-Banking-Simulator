@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using NWBA_Web_Admin.Filters;
 using NWBA_Web_Admin.Models;
 
 namespace NWBA_Web_Admin.Controllers
 {
+    [AuthorisationFilter]
     [Route("RestrictedAccountAccess")]
     public class AccountsController : Controller
     {

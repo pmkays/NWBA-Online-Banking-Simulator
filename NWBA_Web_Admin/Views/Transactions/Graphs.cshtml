@@ -82,7 +82,7 @@
 
         var serializedForm = f.serializeArray();
         if (document.getElementById("graphType").value == "bar") {
-            $.post("https://localhost:44317/transactions/bargraph", serializedForm, function (transactionDates) {
+            $.post("https://localhost:44317/restrictedtransactionaccess/bargraph", serializedForm, function (transactionDates) {
                 var object = transactionDates;
                 const labels = [];
                 const data = [];
@@ -118,7 +118,7 @@
             });
         }
         else if (document.getElementById("graphType").value == "pie") {
-            $.post("https://localhost:44317/transactions/piegraph", serializedForm, function (transactionDates) {
+            $.post("https://localhost:44317/restrictedtransactionaccess/piegraph", serializedForm, function (transactionDates) {
                 var object = transactionDates;
                 console.log(transactionDates);
 
@@ -162,7 +162,7 @@
             });
         }
         else {
-            $.post("https://localhost:44317/transactions/linegraph", serializedForm, function (transactionDates) {
+            $.post("https://localhost:44317/restrictedtransactionaccess/linegraph", serializedForm, function (transactionDates) {
                 var object = transactionDates;
                 console.log(transactionDates);
                 const labels = [];
