@@ -1,0 +1,77 @@
+﻿@model NWBA_Web_Admin.Models.Customer
+
+@{
+    ViewData["Title"] = "Edit Customer";
+}
+
+<h1>Edit Customer</h1>
+
+<h4>Customer @Model.CustomerName</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditCustomer">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CustomerName" class="control-label"></label>
+                <input asp-for="CustomerName" class="form-control" />
+                <span asp-validation-for="CustomerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tfn" class="control-label"></label>
+                <input asp-for="Tfn" class="form-control" />
+                <span asp-validation-for="Tfn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="State" class="control-label"></label>
+                <input asp-for="State" class="form-control" />
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostCode" class="control-label"></label>
+                <input asp-for="PostCode" class="form-control" />
+                <span asp-validation-for="PostCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Login.Status" class="control-label">Customer Status</label>
+                <select id="graphType" asp-for="Login.Status" class="form-control">
+                    <option value="Active">Active</option>
+                    <option value="Blocked">Blocked</option>
+                </select>
+                <span asp-validation-for="Login.Status" class="text-danger"></span>
+            </div>
+            <div>
+                <input type="hidden" asp-for="CustomerId" value="@Model.CustomerId" />
+                <input type="hidden" asp-for="Login.UserId" value="@Model.Login.UserId" />
+                <input type="hidden" asp-for="Login.PasswordHash" value="@Model.Login.PasswordHash" />
+                <input type="hidden" asp-for="Login.LoginAttempts" value="@Model.Login.LoginAttempts" />
+                <input type="hidden" asp-for="Login.ModifyDate" value="@Model.Login.ModifyDate" />
+                <input type="hidden" asp-for="Login.CustomerId" value="@Model.Login.CustomerId" />
+                <input type="hidden" asp-for="Login.BlockTime" value="@Model.Login.BlockTime" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="ViewCustomers">Back to Customers</a>
+</div>
+

@@ -1,0 +1,50 @@
+﻿@model NWBA_Web_Admin.Models.Account
+
+@{
+    ViewData["Title"] = "Delete Account";
+}
+
+<h1>Delete Account @Model.AccountNumber</h1>
+
+<h3>Are you sure you want to delete this account?</h3>
+<div>
+    <h4>Account</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AccountNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AccountType)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomerId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomerId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Balance)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Balance)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ModifyDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ModifyDate)
+        </dd>
+    </dl>
+    
+    <form asp-action="DeleteAccountSuccess">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-controller="Customers" asp-action="CustomerDetails" asp-route-id ="@Model.CustomerId">Back to Customer Details</a>
+    </form>
+</div>
