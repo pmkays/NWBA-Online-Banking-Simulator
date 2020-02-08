@@ -26,12 +26,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Date1" class="control-label">From: </label>
-                <input type="date" asp-for="Date1" class="form-control" />
+                <input id="date1" type="date" asp-for="Date1" class="form-control" />
                 <span asp-validation-for="Date1" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Date2" class="control-label">To: </label>
-                <input type="date" asp-for="Date2" class="form-control" />
+                <input id="date2" type="date" asp-for="Date2" class="form-control" />
                 <span asp-validation-for="Date2" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -45,6 +45,7 @@
             <div class="form-group">
                 <input id="Submit" type="submit" value="View" class="btn btn-primary" />
             </div>
+            <span id="dateError" class="text-danger"></span>
         </form>
     </div>
 
@@ -77,11 +78,21 @@
             transactionChart.destroy();
         }
 
+        //variables for form validation
+        var proceed = true;
+        var date1 = document.getElementById("date1").value; 
+        var date2 = document.getElementById("date2").value;
+        var error = document.getElementById("dateError");
 
-        var f = $('#form');
+        if (date2 < date1 || date1 > moment().format('YYYY-MM-DD') || date2 > moment().format('YYYY-MM-DD')) {
+            clearTable();
+            error.innerHTML = "Please ensure dates chosen are valid";
+            proceed = false;
+        }
 
-        var serializedForm = f.serializeArray();
-        if (document.getElementById("graphType").value == "bar") {
+        //calls the right graphs depending on graphType and if the form is valid
+        var serializedForm = $('#form').serializeArray();
+        if (document.getElementById("graphType").value == "bar" && proceed) {
             $.post("https://localhost:44317/restrictedtransactionaccess/bargraph", serializedForm, function (transactionDates) {
                 var object = transactionDates;
                 const labels = [];
@@ -116,8 +127,11 @@
                     }
                 });
             });
+            document.getElementById("button").style = "display:inline";
+            document.getElementById("trans-table").innerHTML = "";
+            error.innerHTML = " ";
         }
-        else if (document.getElementById("graphType").value == "pie") {
+        else if (document.getElementById("graphType").value == "pie" && proceed) {
             $.post("https://localhost:44317/restrictedtransactionaccess/piegraph", serializedForm, function (transactionDates) {
                 var object = transactionDates;
                 console.log(transactionDates);
@@ -160,8 +174,11 @@
                     }
                 });
             });
+            document.getElementById("button").style = "display:inline";
+            document.getElementById("trans-table").innerHTML = "";
+            error.innerHTML = " ";
         }
-        else {
+        else if(document.getElementById("graphType").value == "line" && proceed) {
             $.post("https://localhost:44317/restrictedtransactionaccess/linegraph", serializedForm, function (transactionDates) {
                 var object = transactionDates;
                 console.log(transactionDates);
@@ -199,14 +216,14 @@
                     }
                 });
             });
+            document.getElementById("button").style = "display:inline";
+            document.getElementById("trans-table").innerHTML = "";
+            error.innerHTML = " ";
         }
-        document.getElementById("button").style = "display:inline";
-        document.getElementById("trans-table").innerHTML = "";
     })
-</script>
-<script>
-    document.getElementById("button").onclick = generateTableView;
 
+    //event listeners table-related functionality
+    document.getElementById("button").onclick = generateTableView;
     document.getElementById("customer-select").onchange = clearTable;
 
     function clearTable() {
@@ -215,6 +232,7 @@
         document.getElementById("button").style = "display:none";
     }
 
+    //generates the table in html
     function generateTableView() {
         if (document.getElementById("trans-table").innerHTML == "") {
             document.getElementById("button").innerHTML = "Hide statement of this time period";
@@ -223,7 +241,7 @@
 
             var serializedForm = f.serializeArray();
 
-            $.post("https://localhost:44317/transactions/tables", serializedForm, function (transactions) {
+            $.post("https://localhost:44317/restrictedtransactionaccess/tables", serializedForm, function (transactions) {
                 //set up variables to use throughout code
                 var trans = transactions;
                 let table = document.querySelector("table");
