@@ -53,7 +53,7 @@ namespace NWBA_Web_Admin.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-                //nani
+                return new List<TransDateCount>();
             }
 
             //gets the results of the transdatecount objs as JsonString
@@ -91,7 +91,7 @@ namespace NWBA_Web_Admin.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-               //nani
+                return new List<TransactionView>();
             }
 
             //gets the results of the transdatecount objs as JsonString
@@ -123,7 +123,7 @@ namespace NWBA_Web_Admin.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-                //nani
+                return new List<TransTypeDateCount>();
             }
 
             //gets the results of the transtypedatecount objs as JsonString
@@ -156,7 +156,7 @@ namespace NWBA_Web_Admin.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-                //nani
+                return new List<AmountDateCount>();
             }
 
             //gets the results of the amountdatecount objs as JsonString
@@ -180,7 +180,7 @@ namespace NWBA_Web_Admin.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                return new List<Customer>();
             }
 
             var result = response.Content.ReadAsStringAsync().Result;

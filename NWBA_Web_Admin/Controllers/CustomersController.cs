@@ -25,7 +25,7 @@ namespace NWBA_Web_Admin.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                return NotFound();
             }
 
             // Storing the response details recieved from web api.
@@ -48,7 +48,7 @@ namespace NWBA_Web_Admin.Controllers
 
             if (!response.IsSuccessStatusCode || !accounts.IsSuccessStatusCode)
             {
-                throw new Exception();
+                return NotFound();
             }
 
             // Storing the response details recieved from web api.
@@ -58,6 +58,8 @@ namespace NWBA_Web_Admin.Controllers
             // Deserializing the response recieved from web api and storing into a list.
             var customer = JsonConvert.DeserializeObject<Customer>(result);
             var accountsList = JsonConvert.DeserializeObject<List<Account>>(result2);
+            if (customer == null)
+                return NotFound();
 
             CustomerDetailsViewModel model = new CustomerDetailsViewModel
             {
@@ -75,7 +77,7 @@ namespace NWBA_Web_Admin.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                return NotFound();
             }
 
             // Storing the response details recieved from web api.
@@ -83,6 +85,8 @@ namespace NWBA_Web_Admin.Controllers
 
             // Deserializing the response recieved from web api and storing into a list.
             var customer = JsonConvert.DeserializeObject<Customer>(result);
+            if (customer == null)
+                return NotFound();
 
             return View(customer);
         }
@@ -111,7 +115,7 @@ namespace NWBA_Web_Admin.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                return NotFound();
             }
 
             // Storing the response details recieved from web api.
@@ -119,6 +123,8 @@ namespace NWBA_Web_Admin.Controllers
 
             // Deserializing the response recieved from web api and storing into a list.
             var customer = JsonConvert.DeserializeObject<Customer>(result);
+            if (customer == null)
+                return NotFound();
 
             return View(customer);
         }
@@ -130,7 +136,7 @@ namespace NWBA_Web_Admin.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                return NotFound();
             }
 
             return RedirectToAction("ViewCustomers");

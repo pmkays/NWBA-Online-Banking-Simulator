@@ -24,11 +24,15 @@ namespace NWBA_Web_Application.Controllers
         public async Task<IActionResult> Login(string userID, string password)
         {
             var currLogin = await _loginRepo.GetFromUserID(userID);
-            if (currLogin is null || !PBKDF2.Verify(currLogin.PasswordHash, password) || currLogin.Status == "Blocked")
+            if (currLogin is null || !PBKDF2.Verify(currLogin.PasswordHash, password) || currLogin.Status == "Blocked" || currLogin.Status == "SBlocked")
             {
                 currLogin.LoginAttempts++;
                 _loginRepo.Update(currLogin);
-                if (currLogin.LoginAttempts >= 3)
+                if(currLogin.Status == "SBlocked")
+                {
+                    ModelState.AddModelError("LoginFailed", "Login failed, please try again.");
+                }
+                else if (currLogin.LoginAttempts >= 3 && currLogin.Status != "SBlocked")
                 {
                     ModelState.AddModelError("LoginFailed", "Too many unsucessful log in attempts, please try again later.");
                 }

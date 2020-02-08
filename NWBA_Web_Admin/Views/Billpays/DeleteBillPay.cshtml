@@ -61,7 +61,7 @@
         </dd>
     </dl>
 
-    <form asp-action="DeleteBillPaySuccess">
+    <form asp-action="DeleteBillPaySuccess" asp-route-id="@Model.BillPayId">
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="ScheduledBillPays" asp-route-id="@Model.AccountNumber">Back to Scheduled Payments</a>
     </form>

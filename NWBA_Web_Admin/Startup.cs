@@ -27,9 +27,6 @@ namespace NWBA_Web_Admin
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {
-                // Session times out after 60 seconds of inactivity
-                //options.IdleTimeout = TimeSpan.FromSeconds(60);
-                //options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
         }
@@ -47,6 +44,10 @@ namespace NWBA_Web_Admin
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+
+            app.UseStatusCodePagesWithReExecute("/StatusCode/{0}");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

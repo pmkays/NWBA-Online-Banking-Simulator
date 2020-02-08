@@ -20,7 +20,7 @@ namespace NWBA_Web_Admin.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                return NotFound();
             }
 
             // Storing the response details recieved from web api.
@@ -28,6 +28,8 @@ namespace NWBA_Web_Admin.Controllers
 
             // Deserializing the response recieved from web api and storing into a list.
             var account = JsonConvert.DeserializeObject<Account>(result);
+            if (account == null)
+                return NotFound();
 
             return View(account);
         }
@@ -39,10 +41,10 @@ namespace NWBA_Web_Admin.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                return NotFound();
             }
 
-            return RedirectToAction("ViewCustomers");
+            return RedirectToAction("ViewCustomers", "Customers");
         }
     }
 }

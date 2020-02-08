@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NWBA_Web_Admin.Custom_Annotations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -29,10 +30,12 @@ namespace NWBA_Web_Admin.Models
         [StringLength(40)]
         public string City { get; set; }
         [StringLength(20)]
+        [State]
         public string State { get; set; }
-        [StringLength(10)]
+        [StringLength(4)]
         public string PostCode { get; set; }
         [StringLength(14)]
+        [RegularExpression(@"^\(61\)-\s[0-9]{8}$", ErrorMessage = "Phone Number should be in this format: (61)- xxxxxx")]
         public string Phone { get; set; }
 
         [InverseProperty("Customer")]

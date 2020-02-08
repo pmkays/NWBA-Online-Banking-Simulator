@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NWBA_Web_Admin.Custom_Annotations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,6 +20,7 @@ namespace NWBA_Web_Admin.Models
         public int AccountNumber { get; set; }
         [Required]
         [StringLength(1)]
+        [AccountType]
         [Display(Name = "Type")]
         public string AccountType { get; set; }
         [Column("CustomerID")]

@@ -24,7 +24,7 @@ namespace NWBA_Web_Admin.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                return NotFound();
             }
 
             // Storing the response details recieved from web api.
@@ -46,7 +46,7 @@ namespace NWBA_Web_Admin.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                return NotFound();
             }
 
             // Storing the response details recieved from web api.
@@ -54,6 +54,8 @@ namespace NWBA_Web_Admin.Controllers
 
             // Deserializing the response recieved from web api and storing into a list.
             var billPay = JsonConvert.DeserializeObject<BillPay>(result);
+            if (billPay == null)
+                return NotFound();
 
             return View(billPay);
         }
@@ -65,10 +67,10 @@ namespace NWBA_Web_Admin.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                return NotFound();
             }
 
-            return RedirectToAction("ViewCustomers");
+            return RedirectToAction("ViewCustomers", "Customers");
 
         }
 
@@ -79,7 +81,7 @@ namespace NWBA_Web_Admin.Controllers
 
             if (response == null)
             {
-                throw new Exception();
+                return NotFound();
             }
 
             // Storing the response details recieved from web api.
@@ -87,6 +89,8 @@ namespace NWBA_Web_Admin.Controllers
 
             // Deserializing the response recieved from web api and storing into a list.
             var billPay = JsonConvert.DeserializeObject<BillPay>(result);
+            if (billPay == null)
+                return NotFound();
 
             if (billPay.Status == "Active")
             {
@@ -103,7 +107,7 @@ namespace NWBA_Web_Admin.Controllers
 
             if (!update.IsSuccessStatusCode)
             {
-                throw new Exception();
+                return NotFound();
             }
 
             return RedirectToAction("ScheduledBillPays", new { id = billPay.AccountNumber });
