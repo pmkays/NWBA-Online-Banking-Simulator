@@ -16,6 +16,8 @@ namespace WebApi.Models.DataManagers
         {
             _context = context;
         }
+
+        //adds an account
         public int Add(Account item)
         {
             _context.Account.Add(item);
@@ -23,6 +25,7 @@ namespace WebApi.Models.DataManagers
             return item.AccountNumber;
         }
 
+        //deletes account
         public int Delete(int id)
         {
             _context.Account.Remove(this.Get(id));
@@ -30,21 +33,25 @@ namespace WebApi.Models.DataManagers
             return id;
         }
 
+        //gets specific account
         public Account Get(int id)
         {
             return _context.Account.Include(x => x.TransactionAccountNumberNavigation).FirstOrDefault(x => x.AccountNumber == id);
         }
 
+        //gets the accounts of a customer from customer id
         public IEnumerable<Account> GetAccountFromCustomer(int id)
         {
             return _context.Account.Include(x => x.TransactionAccountNumberNavigation).Where(x => x.CustomerId == id).ToList();
         }
 
+        //gets all accounts of customers
         public IEnumerable<Account> GetAll()
         {
             return _context.Account.Include(x => x.TransactionAccountNumberNavigation).ToList();
         }
 
+        //updates an account
         public int Update(int id, Account item)
         {
             _context.Account.Update(item);

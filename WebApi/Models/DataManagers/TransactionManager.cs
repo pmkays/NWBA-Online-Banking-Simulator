@@ -17,6 +17,8 @@ namespace WebApi.Models.DataManagers
         {
             _context = context;
         }
+
+        //adds a transaction
         public int Add(Transaction item)
         {
             _context.Transaction.Add(item);
@@ -24,6 +26,7 @@ namespace WebApi.Models.DataManagers
             return item.TransactionId;
         }
 
+        //deletes a transaction
         public int Delete(int id)
         {
             _context.Transaction.Remove(this.Get(id));
@@ -31,16 +34,19 @@ namespace WebApi.Models.DataManagers
             return id;
         }
 
+        //gets a transaction
         public Transaction Get(int id)
         {
             return _context.Transaction.Where(x => x.AccountNumber == id).OrderByDescending(x => x.ModifyDate).FirstOrDefault();
         }
 
+        //gets all transactions
         public IEnumerable<Transaction> GetAll()
         {
             return _context.Transaction.OrderByDescending(x => x.ModifyDate).ToList();
         }
 
+        //updates a transaction
         public int Update(int id, Transaction item)
         {
             _context.Transaction.Update(item);
@@ -48,20 +54,19 @@ namespace WebApi.Models.DataManagers
             return id;
         }
 
+        //gets line graph data for all users
         public IEnumerable<AmountDateCount> GetLineAll(DateTime date1, DateTime date2)
         {
             date1 = date1.ToUniversalTime();
             date2 = date2.ToUniversalTime();
 
-            //instantiate an array of new amount date count objects
             List<AmountDateCount> amountDateCount = new List<AmountDateCount>();
 
-            //loops through the date range
             while (date1 != date2.AddDays(1))
             {
-                //must restrict the date to one day as a time; == doesn't work because it is datetime not date
+                //must restrict the date to one day as a time as == doesn't work with DateTime objects
                 //group by statement converts the datetime to date
-                //add the amount
+                //add the amounts together
                 DateTime dayAfter = date1.AddDays(1);
                 var amount = _context.Transaction.
                     Include(x => x.AccountNumberNavigation).
@@ -80,21 +85,20 @@ namespace WebApi.Models.DataManagers
             return amountDateCount;
         }
 
+        //gets line graph data for a specific user
         public IEnumerable<AmountDateCount> GetLine(int id, DateTime date1, DateTime date2)
         {
             date1 = date1.ToUniversalTime();
             date2 = date2.ToUniversalTime();
 
-            //instantiate an array of new amount date count objects
             List<AmountDateCount> amountDateCount = new List<AmountDateCount>();
 
-            //loops through the date range
             while (date1 != date2.AddDays(1))
             {
-                //must restrict the date to one day as a time; == doesn't work because it is datetime not date
+                //must restrict the date to one day as a time as == doesn't work with DateTime objects
                 //must use theninclude because we are referencing the navigation property of account to get customer
                 //group by statement converts the datetime to date
-                //add the amount
+                //add the amounts together
                 DateTime dayAfter = date1.AddDays(1);
                 var amount = _context.Transaction.
                     Include(x => x.AccountNumberNavigation).
@@ -113,6 +117,7 @@ namespace WebApi.Models.DataManagers
             return amountDateCount;
         }
 
+        //gets pie graph data for all customers
         public IEnumerable<TransTypeDateCount> GetPieAll(DateTime date1, DateTime date2)
         {
             date1 = date1.ToUniversalTime();
@@ -131,6 +136,7 @@ namespace WebApi.Models.DataManagers
             return transactionTypes; 
         }
 
+        //gets pie graph data for a specific customer
         public IEnumerable<TransTypeDateCount> GetPie(int id, DateTime date1, DateTime date2)
         {
             date1 = date1.ToUniversalTime();
@@ -151,17 +157,18 @@ namespace WebApi.Models.DataManagers
             return transactionTypes;
         }
 
-        public IEnumerable<TransDateCount> GetRangeAll(DateTime date1, DateTime date2)
+        //gets bar graph data for all customers
+        public IEnumerable<TransDateCount> GetBarAll(DateTime date1, DateTime date2)
         {
             date1 = date1.ToUniversalTime();
             date2 = date2.ToUniversalTime();
-            //instantiate an array of new transaction date count objects
+
             List<TransDateCount> transDateCount = new List<TransDateCount>();
 
-            //loops through the date range
             while (date1 != date2.AddDays(1))
             {
-
+                //must restrict the date to one day as a time as == doesn't work with DateTime objects
+                //group by statement converts the datetime to date
                 DateTime dayAfter = date1.AddDays(1);
                 var amount = _context.Transaction.
                     Where(x => x.ModifyDate >= date1 && x.ModifyDate <= dayAfter).
@@ -179,19 +186,17 @@ namespace WebApi.Models.DataManagers
             return transDateCount;
         }
 
-
-        public IEnumerable<TransDateCount> GetRange(int id, DateTime date1, DateTime date2)
+        //gets bar graph data for a specific customer
+        public IEnumerable<TransDateCount> GetBar(int id, DateTime date1, DateTime date2)
         {
             date1 = date1.ToUniversalTime();
             date2 = date2.ToUniversalTime();
 
-            //instantiate an array of new transaction date count objects
             List<TransDateCount> transDateCount = new List<TransDateCount>();
 
-            //loops through the date range
             while (date1 != date2.AddDays(1))
             {
-                //must restrict the date to one day as a time; == doesn't work because it is datetime not date
+                //must restrict the date to one day as a time as == doesn't work with DateTime objects
                 //must use theninclude because we are referencing the navigation property of account to get customer
                 //group by statement converts the datetime to date
                 DateTime dayAfter = date1.AddDays(1);
@@ -212,6 +217,7 @@ namespace WebApi.Models.DataManagers
             return transDateCount;
         }
 
+        //gets table for all customers
         public IEnumerable<TransactionView> GetTableAll(DateTime date1, DateTime date2)
         {
             date1 = date1.ToUniversalTime();
@@ -233,12 +239,14 @@ namespace WebApi.Models.DataManagers
             return transactions; 
         }
 
-
+        //gets table for a specific customer
         public IEnumerable<TransactionView> GetTable(int id, DateTime date1, DateTime date2)
         {
             date1 = date1.ToUniversalTime();
             date2 = date2.ToUniversalTime().AddDays(1);
-;
+
+            //must use theninclude because we are referencing the navigation property of account to get customer
+            //group by statement converts the datetime to date
             var transactions = _context.Transaction.
                 Include(x => x.AccountNumberNavigation).
                 ThenInclude(a => a.Customer).

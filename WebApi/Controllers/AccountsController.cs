@@ -34,6 +34,7 @@ namespace WebApi.Controllers
             return _repo.Get(id);
         }
 
+        //GET: api/Accounts/AccountFromCustomer/5
         [HttpGet("AccountFromCustomer/{id}")]
         public IEnumerable<Account> AccountFromCustomer(int id)
         {

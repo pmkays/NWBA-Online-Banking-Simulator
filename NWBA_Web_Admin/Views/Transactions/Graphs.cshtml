@@ -48,16 +48,15 @@
         </form>
     </div>
 
-
-
     <div class="col-lg-9">
         <canvas id="transactionChart"></canvas>
     </div>
 </div>
+
 <div class="container">
     <br />
     <hr />
-    <button id="button" class="btn btn-primary" style="display:none">Show statement of this time period</button>
+    <button id="button" class="btn btn-primary" style="display:none">Show statements of this time period</button>
     <hr>
     <table id="trans-table" class="table"></table>
 </div>
@@ -67,27 +66,33 @@
 <script src ="~/js/jquery-3.4.1.js"></script>
 <script>
     var canvas = document.getElementById("transactionChart").getContext("2d");
+    var transactionChart = null; 
     $("#form").submit(function (e) {
         //so ajax can be called
         e.preventDefault();
+
+        //clears canvas for next graph redrawing
+        if (transactionChart != null) {
+            console.log("destroyed");
+            transactionChart.destroy();
+        }
+
 
         var f = $('#form');
 
         var serializedForm = f.serializeArray();
         if (document.getElementById("graphType").value == "bar") {
-            $.post("https://localhost:44317/transactions/graphs", serializedForm, function (transactionDates) {
+            $.post("https://localhost:44317/transactions/bargraph", serializedForm, function (transactionDates) {
                 var object = transactionDates;
-
                 const labels = [];
                 const data = [];
-                for (let x of object) {
-                    var formattedDate = x.date.substring(0, 10);
-                    
-                    labels.push(formattedDate);
-                    data.push({ t: moment(x.date, 'L').toDate(), y: x.count });
+                
+                for (let x of object) {                 
+                    labels.push(moment(x.date).format('DD/MM/YYYY'));
+                    data.push({ t: moment(x.date).format('DD/MM/YYYY'), y: x.count });
                 }
 
-                const transactionChart = new Chart(canvas, {
+                transactionChart = new Chart(canvas, {
                     type: "bar",
                     data: {
                         labels: labels,
@@ -104,8 +109,8 @@
                                     }]
                                 }
                             },
-                            backgroundColor: "rgba(255, 99, 132, 0.2)",
-                            borderColor: "rgba(255, 99, 132, 1)",
+                            backgroundColor: "#ED7348",
+                            borderColor: "#E95420",
                             borderWidth: 1
                         }]
                     }
@@ -135,19 +140,21 @@
                         case ("B"):
                             typeDisplay = "Billpay"; 
                             break;
+                        case ("S"):
+                            typeDisplay = "Service";
+                            break;
                     }
                     labels.push(typeDisplay);
                     data.push(x.count);
                 }
 
-                const transactionChart = new Chart(canvas, {
+                transactionChart = new Chart(canvas, {
                     type: "doughnut",
                     data: {
                         labels: labels,
                         datasets: [{
                             data: data,
-                            backgroundColor: "rgba(255, 99, 132, 0.2)",
-                            borderColor: "rgba(255, 99, 132, 1)",
+                            backgroundColor: ["#F9C80E", "#ED7348", "#8154AD", "#43BCCD", "#F19271"],                          
                             borderWidth: 1
                         }]
                     }
@@ -157,19 +164,18 @@
         else {
             $.post("https://localhost:44317/transactions/linegraph", serializedForm, function (transactionDates) {
                 var object = transactionDates;
-                
+                console.log(transactionDates);
                 const labels = [];
                 const data = [];
-                for (let x of object) {
 
-                    var formattedDate = x.date.substring(0, 10);
-                    labels.push(formattedDate);
-                    
-                    console.log(formattedDate);
-                    data.push({ t: moment(x.date, 'L').toDate(), y: x.amount });
+                for (let x of object) {                 
+                    labels.push(moment(x.date).format('DD/MM/YYYY'));
+                    data.push({ t: moment(x.date).format('DD/MM/YYYY'), y: x.amount.toFixed(2) });
                 }
+                console.log(labels);
+                console.log(data);
 
-                const transactionChart = new Chart(canvas, {
+                transactionChart = new Chart(canvas, {
                     type: "line",
                     data: {
                         labels: labels,
@@ -186,14 +192,13 @@
                                     }]
                                 }
                             },
-                            backgroundColor: "rgba(255, 99, 132, 0.2)",
-                            borderColor: "rgba(255, 99, 132, 1)",
+                            backgroundColor: "#ED7348",
+                            borderColor: "#E95420",
                             borderWidth: 1
                         }]
                     }
                 });
             });
-            console.log("success")
         }
         document.getElementById("button").style = "display:inline";
         document.getElementById("trans-table").innerHTML = "";
@@ -219,11 +224,9 @@
             var serializedForm = f.serializeArray();
 
             $.post("https://localhost:44317/transactions/tables", serializedForm, function (transactions) {
-                console.log("Successfully returned from controller");
                 //set up variables to use throughout code
                 var trans = transactions;
                 let table = document.querySelector("table");
-                console.log(trans);
                 let headers = ["Transaction ID", "Transaction Type", "Account", "Destination Account", "Amount", "Comment", "Time"]
 
                 //create first head and row for first line
@@ -242,19 +245,58 @@
                 for (let element of trans) {
                     //insert a new row for each element
                     let row = table.insertRow();
+                    var index = 0;
+                    var transTypeElement = 1; 
+                    var amountElement = 4;
+                    var endElement = 6;
                     //loops through each element one by one to individually put in the cells
                     for (key in element) {
                         //insert individual cell
                         let cell = row.insertCell();
                         //insert text in that cell
                         var text = "";
+
+                        //format null and default
                         if (element[key] == null) {
                             text = document.createTextNode("N/A");
                         }
                         else {
                             text = document.createTextNode(element[key]);
                         }
+
+                        //format transaction tpye
+                        if (index == transTypeElement) {
+                            switch (element[key]) {
+                                case ("D"):
+                                    text = document.createTextNode("Deposit");
+                                    break;
+                                case ("W"):
+                                    text = document.createTextNode("Withdrawal");
+                                    break;
+                                case ("T"):
+                                    text = document.createTextNode("Transfer");
+                                    break;
+                                case ("B"):
+                                    text = document.createTextNode("Billpay");
+                                    break;
+                                case ("B"):
+                                    text = document.createTextNode("Service");
+                                    break;
+                            }
+                        }
+
+                        //format amount
+                        if (index == amountElement) {
+                            text = document.createTextNode(element[key].toFixed(2)); 
+                        }
+
+                        //format date
+                        if (moment(element[key]).isValid() && index == endElement) {
+                            text = document.createTextNode(moment(element[key]).format('DD/MM/YYYY hh:mm:ss'));
+                        }
+
                         cell.appendChild(text);
+                        index++; 
                     }
                 }
             })

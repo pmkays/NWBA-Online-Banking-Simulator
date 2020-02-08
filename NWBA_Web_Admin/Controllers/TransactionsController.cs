@@ -48,7 +48,7 @@ namespace NWBA_Web_Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IEnumerable<TransDateCount>> Graphs(GraphViewModel formModel)
+        public async Task<IEnumerable<TransDateCount>> BarGraph(GraphViewModel formModel)
         {
 
             string date1 = formModel.Date1.ToString("dd-MM-yyyy hh:mm:ss");
@@ -58,17 +58,15 @@ namespace NWBA_Web_Admin.Controllers
 
             if (formModel.CustomerID == 0)
             {
-                response = await WebApi.InitializeClient().GetAsync($"api/transactions/inrange?date1={date1}&date2={date2}");
+                response = await WebApi.InitializeClient().GetAsync($"api/transactions/inbar?date1={date1}&date2={date2}");
             }
             else
             {
                 int id = formModel.CustomerID;
-                response = await WebApi.InitializeClient().GetAsync($"api/transactions/inrangewithid?id={id}&date1={date1}&date2={date2}");
+                response = await WebApi.InitializeClient().GetAsync($"api/transactions/inbarwithid?id={id}&date1={date1}&date2={date2}");
             }
 
-            this.CheckDates(formModel.Date1, formModel.Date2);
-
-            if (!response.IsSuccessStatusCode || !ModelState.IsValid)
+            if (!response.IsSuccessStatusCode)
             {
                 //nani
             }
@@ -78,6 +76,11 @@ namespace NWBA_Web_Admin.Controllers
 
             //converts it to objects again 
             var transPDay = JsonConvert.DeserializeObject<List<TransDateCount>>(result);
+
+            foreach (TransDateCount trans in transPDay)
+            {
+                trans.Date = DateTime.Parse(trans.Date.ToString("dd/MM/yy"));
+            }
 
             return transPDay;
         }
@@ -101,9 +104,7 @@ namespace NWBA_Web_Admin.Controllers
                 response = await WebApi.InitializeClient().GetAsync($"api/transactions/intablewithid?id={id}&date1={date1}&date2={date2}");
             }
 
-            this.CheckDates(formModel.Date1, formModel.Date2);
-
-            if (!response.IsSuccessStatusCode || !ModelState.IsValid)
+            if (!response.IsSuccessStatusCode)
             {
                //nani
             }
@@ -135,9 +136,7 @@ namespace NWBA_Web_Admin.Controllers
                 response = await WebApi.InitializeClient().GetAsync($"api/transactions/inpiewithid?id={id}&date1={date1}&date2={date2}");
             }
 
-            this.CheckDates(formModel.Date1, formModel.Date2);
-
-            if (!response.IsSuccessStatusCode || !ModelState.IsValid)
+            if (!response.IsSuccessStatusCode)
             {
                 //nani
             }
@@ -170,9 +169,7 @@ namespace NWBA_Web_Admin.Controllers
                 response = await WebApi.InitializeClient().GetAsync($"api/transactions/inlinewithid?id={id}&date1={date1}&date2={date2}");
             }
 
-            this.CheckDates(formModel.Date1, formModel.Date2);
-
-            if (!response.IsSuccessStatusCode || !ModelState.IsValid)
+            if (!response.IsSuccessStatusCode)
             {
                 //nani
             }
@@ -182,6 +179,11 @@ namespace NWBA_Web_Admin.Controllers
 
             //converts it to objects again 
             var amountDates = JsonConvert.DeserializeObject<List<AmountDateCount>>(result);
+
+            foreach (AmountDateCount amountDate in amountDates)
+            {
+                amountDate.Date = DateTime.Parse(amountDate.Date.ToString("dd/MM/yy"));
+            }
 
             return amountDates;
         }
@@ -203,11 +205,10 @@ namespace NWBA_Web_Admin.Controllers
 
         private void CheckDates(DateTime date1, DateTime date2)
         {
-            if(date2 < date1 || (date2.Date - date1.Date).TotalDays > 30 || date2 > DateTime.Now)
+            if(date2 < date1 || date2 > DateTime.Now || date1 > DateTime.Now)
             {
                 ModelState.AddModelError(nameof(date2), "Please ensure dates are valid");
             }
-
         }
     }
 }
