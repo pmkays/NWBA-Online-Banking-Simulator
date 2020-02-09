@@ -224,7 +224,7 @@ namespace WebApi.Models.DataManagers
             date2 = date2.ToUniversalTime().AddDays(1);
 
             var transactions = _context.Transaction.
-                Where(x => x.ModifyDate >= date1 && x.ModifyDate <= date2).
+                Where(x => x.ModifyDate >= date1 && x.ModifyDate <= date2).OrderByDescending(x => x.ModifyDate).
                 Select(x => new TransactionView
                 {
                     TransactionId = x.TransactionId,
@@ -250,7 +250,7 @@ namespace WebApi.Models.DataManagers
             var transactions = _context.Transaction.
                 Include(x => x.AccountNumberNavigation).
                 ThenInclude(a => a.Customer).
-                Where(x => x.AccountNumberNavigation.CustomerId == id && x.ModifyDate >= date1 && x.ModifyDate <= date2).
+                Where(x => x.AccountNumberNavigation.CustomerId == id && x.ModifyDate >= date1 && x.ModifyDate <= date2).OrderByDescending(x => x.ModifyDate).
                 Select(x => new TransactionView
                 { 
                     TransactionId = x.TransactionId, 

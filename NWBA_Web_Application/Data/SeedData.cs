@@ -174,6 +174,30 @@ namespace NWBA_Web_Application.Data
                 new Transaction
                 {
                     TransactionType = "D",
+                    AccountNumber = 4101,
+                    Amount = 500,
+                    Comment = openingBalance,
+                    ModifyDate = DateTime.ParseExact("19/12/2019 08:30:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = "D",
+                    AccountNumber = 4200,
+                    Amount = 500.95m,
+                    Comment = openingBalance,
+                    ModifyDate = DateTime.ParseExact("19/12/2019 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = "D",
+                    AccountNumber = 4300,
+                    Amount = 1250.50m,
+                    Comment = "Opening balance",
+                    ModifyDate = DateTime.ParseExact("19/12/2019 10:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = "D",
                     AccountNumber = 4100,
                     Amount = 200,
                     ModifyDate = DateTime.ParseExact("21/12/2019 08:00:00 PM", format, null)
@@ -232,34 +256,53 @@ namespace NWBA_Web_Application.Data
                 },
                 new Transaction
                 {
+                    TransactionType = "D",
+                    AccountNumber = 4100,
+                    Amount = 300,
+                    ModifyDate = DateTime.ParseExact("01/01/2020 08:00:00 AM", format, null)
+                },
+
+                new Transaction
+                {
+                    TransactionType = "W",
+                    AccountNumber = 4100,
+                    Amount = 50,
+                    ModifyDate = DateTime.ParseExact("04/01/2020 08:00:00 AM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = "W",
+                    AccountNumber = 4100,
+                    Amount = 75,
+                    ModifyDate = DateTime.ParseExact("11/01/2020 08:00:00 AM", format, null)
+                },
+                new Transaction
+                {
                     TransactionType = "W",
                     AccountNumber = 4100,
                     Amount = 25,
-                    ModifyDate = DateTime.ParseExact("27/12/2019 08:00:00 PM", format, null)
+                    ModifyDate = DateTime.ParseExact("22/01/2020 08:00:00 AM", format, null)
                 },
                 new Transaction
                 {
-                    TransactionType = "D",
-                    AccountNumber = 4101,
-                    Amount = 500,
-                    Comment = openingBalance,
-                    ModifyDate = DateTime.ParseExact("19/12/2019 08:30:00 PM", format, null)
+                    TransactionType = "W",
+                    AccountNumber = 4100,
+                    Amount = 50,
+                    ModifyDate = DateTime.ParseExact("28/01/2020 08:00:00 AM", format, null)
                 },
                 new Transaction
                 {
-                    TransactionType = "D",
-                    AccountNumber = 4200,
-                    Amount = 500.95m,
-                    Comment = openingBalance,
-                    ModifyDate = DateTime.ParseExact("19/12/2019 09:00:00 PM", format, null)
+                    TransactionType = "W",
+                    AccountNumber = 4100,
+                    Amount = 50,
+                    ModifyDate = DateTime.ParseExact("02/02/2020 08:00:00 AM", format, null)
                 },
                 new Transaction
                 {
-                    TransactionType = "D",
-                    AccountNumber = 4300,
-                    Amount = 1250.50m,
-                    Comment = "Opening balance",
-                    ModifyDate = DateTime.ParseExact("19/12/2019 10:00:00 PM", format, null)
+                    TransactionType = "W",
+                    AccountNumber = 4100,
+                    Amount = 50,
+                    ModifyDate = DateTime.ParseExact("05/02/2020 08:00:00 AM", format, null)
                 });
 
             context.SaveChanges();
