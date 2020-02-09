@@ -82,11 +82,16 @@
         var proceed = true;
         var date1 = document.getElementById("date1").value; 
         var date2 = document.getElementById("date2").value;
+        var earliestDate = moment('2019-12-19').format('YYYY-MM-DD');
         var error = document.getElementById("dateError");
 
         if (date2 < date1 || date1 > moment().format('YYYY-MM-DD') || date2 > moment().format('YYYY-MM-DD')) {
             clearTable();
             error.innerHTML = "Please ensure dates chosen are valid";
+            proceed = false;
+        } else if (date1 < earliestDate || date2 < earliestDate) {
+            clearTable();
+            error.innerHTML = "There are no transactions before 19/12/2019";
             proceed = false;
         }
 
@@ -127,6 +132,7 @@
                     }
                 });
             });
+            document.getElementById("button").innerHTML = "Show statement of this time period";
             document.getElementById("button").style = "display:inline";
             document.getElementById("trans-table").innerHTML = "";
             error.innerHTML = " ";
@@ -174,6 +180,7 @@
                     }
                 });
             });
+            document.getElementById("button").innerHTML = "Show statement of this time period";
             document.getElementById("button").style = "display:inline";
             document.getElementById("trans-table").innerHTML = "";
             error.innerHTML = " ";
@@ -216,6 +223,7 @@
                     }
                 });
             });
+            document.getElementById("button").innerHTML = "Show statement of this time period";
             document.getElementById("button").style = "display:inline";
             document.getElementById("trans-table").innerHTML = "";
             error.innerHTML = " ";

@@ -303,3 +303,4 @@ C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\n
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\Razor\Views\Customers\EditCustomer.cshtml.g.cs
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\Razor\Views\Customers\ViewCustomers.cshtml.g.cs
 C:\Users\IaNNz\Documents\GitHub\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\Razor\Views\StatusCode\Index.cshtml.g.cs
+C:\Users\paula\OneDrive\Desktop\-a3-s3788210-s3782041\NWBA_Web_Admin\obj\Debug\netcoreapp3.1\Razor\Views\StatusCode\Index.cshtml.g.cs

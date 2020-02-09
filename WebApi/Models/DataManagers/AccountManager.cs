@@ -28,7 +28,7 @@ namespace WebApi.Models.DataManagers
         //deletes account
         public int Delete(int id)
         {
-            _context.Account.Remove(this.Get(id));
+            _context.Account.Remove(this.GetWithAllTransactions(id));
             _context.SaveChanges();
             return id;
         }
@@ -37,6 +37,14 @@ namespace WebApi.Models.DataManagers
         public Account Get(int id)
         {
             return _context.Account.Include(x => x.TransactionAccountNumberNavigation).FirstOrDefault(x => x.AccountNumber == id);
+        }
+
+        //gets specific account with all transaction navigation properties
+        public Account GetWithAllTransactions(int id)
+        {
+            return _context.Account.Include(x => x.TransactionAccountNumberNavigation).
+                Include(x => x.TransactionDestinationAccountNumberNavigation).
+                FirstOrDefault(x => x.AccountNumber == id);
         }
 
         //gets the accounts of a customer from customer id
