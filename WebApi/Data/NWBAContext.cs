@@ -27,7 +27,7 @@ namespace WebApi.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=wdt2020.australiasoutheast.cloudapp.azure.com;uid=s3788210;database=s3788210;pwd=abc123");
+                optionsBuilder.UseSqlServer("Data Source = (localdb)\\mssqllocaldb; Database = Bank;");
             }
         }
 
