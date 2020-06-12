@@ -32,8 +32,7 @@ Features of the admin application and web API include being able to:
 
 - Utilisation of an API to do the above functions
 
-## Instructions
-Inside, there are two solutions (three projects); please run the NWBA_Web_Application.<span></span>sln (in NWBA_Web_Application directory) before the NWBA_Web_Admin.<span></span>sln (in NWBA_Web_Admin directory). In the NWBA_Web_Admin.<span></span>sln, please run the WebApi project first and leave it in the background before running the NWBA_Web_Admin project. 
+## Demo Logins
 
 For NWBA_Web_Application login:
 Username: 12345678
