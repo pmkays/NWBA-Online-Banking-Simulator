@@ -8,15 +8,28 @@ services:
       - MSSQL_SA_PASSWORD=YourSTRONG!Passw0rd
     ports:
       - '1401:1433'
+    volumes:
+      - bank:/app
   app:
     container_name: nwba-app
     build: .
     environment:
-      - ConnectionStrings:DockerConnectionString=Server=mssql;Database=Bank;User=SA;Password=YourSTRONG!Passw0rd
+      - ConnectionStrings:NWBAConnectionString=Server=mssql;Database=Bank;User=SA;Password=YourSTRONG!Passw0rd
     ports:
       - '8080:80'
     depends_on:
       - "database"
+  nwba-api:
+    container_name: nwba-api
+    build: ../WebApi
+    environment:
+      - ConnectionStrings:NWBAConnectionString=Server=mssql;Database=Bank;User=SA;Password=YourSTRONG!Passw0rd
+    ports:
+      - '80:80'
+    depends_on:
+      - "database"
+volumes:
+  bank:
 
 # docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=YourSTRONG!Passw0rd' -p 1401:1433 --network test --name mssql -d microsoft/mssql-server-linux:2017-latest
 

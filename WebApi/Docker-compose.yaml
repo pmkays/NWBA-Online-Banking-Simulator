@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  # database:
+  #   image: microsoft/mssql-server-linux:2017-latest
+  #   container_name: mssql
+  #   environment:
+  #     - ACCEPT_EULA=Y
+  #     - MSSQL_SA_PASSWORD=YourSTRONG!Passw0rd
+  #   ports:
+  #     - '1401:1433'
+  nwba-api:
+    container_name: nwba-api
+    build: .
+    environment:
+      - ConnectionStrings:NWBAConnectionString=Server=mssql;Database=Bank;User=SA;Password=YourSTRONG!Passw0rd
+    ports:
+      - '80:80'
+    # depends_on:
+    #   - "database"
+
+# docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=YourSTRONG!Passw0rd' -p 1401:1433 --network test --name mssql -d microsoft/mssql-server-linux:2017-latest
+# docker build -t webapi .
+# docker run -e "ConnectionStrings:NWBAConnectionString=Server=mssql;Database=Bank;User=SA;Password=YourSTRONG!Passw0rd" -d --rm -p 8080:80 --network test --name api webapi
