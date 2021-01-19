@@ -30,8 +30,9 @@ namespace NWBA_Web_Application
             services.AddControllersWithViews();
 
             services.AddDbContext<NWBAContext>(options =>
-          options.UseSqlServer(Configuration.GetConnectionString("NWBAConnectionString")));
+            options.UseSqlServer(Configuration.GetConnectionString("NWBAConnectionString")));
 
+            Console.WriteLine(Configuration.GetConnectionString("NWBAConnectionString"));
             services.AddTransient<CustomerManager>();
             services.AddTransient<AccountManager>();
             services.AddTransient<TransactionManager>();

@@ -1,4 +1,5 @@
 using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,6 +15,9 @@ namespace NWBA_Web_Application
             var host = CreateHostBuilder(args).Build();
             using (var scope = host.Services.CreateScope())
             {
+                var db = scope.ServiceProvider.GetRequiredService<NWBAContext>();
+                db.Database.Migrate();
+
                 var services = scope.ServiceProvider;
                 try
                 {
