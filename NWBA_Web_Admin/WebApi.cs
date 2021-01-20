@@ -9,7 +9,8 @@ namespace NWBA_Web_Admin
 {
     public class WebApi
     {
-        private const string ApiBaseUri = "https://localhost:44343";
+        // private const string ApiBaseUri = "https://localhost:44343";
+        private const string ApiBaseUri = "http://nwba-api";
 
         public static HttpClient InitializeClient()
         {

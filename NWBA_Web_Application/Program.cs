@@ -15,10 +15,10 @@ namespace NWBA_Web_Application
             var host = CreateHostBuilder(args).Build();
             using (var scope = host.Services.CreateScope())
             {
-                var db = scope.ServiceProvider.GetRequiredService<NWBAContext>();
+                var services = scope.ServiceProvider;
+                var db = services.GetRequiredService<NWBAContext>();
                 db.Database.Migrate();
 
-                var services = scope.ServiceProvider;
                 try
                 {
                     SeedData.Initialize(services);

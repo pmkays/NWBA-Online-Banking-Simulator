@@ -12,25 +12,35 @@ services:
       - bank:/app
   app:
     container_name: nwba-app
-    build: .
+    build: ./NWBA_Web_Application
     environment:
       - ConnectionStrings:NWBAConnectionString=Server=mssql;Database=Bank;User=SA;Password=YourSTRONG!Passw0rd
+      - ASPNETCORE_ENVIRONMENT=”development”
     ports:
       - '8080:80'
     depends_on:
       - "database"
-  nwba-api:
+    restart: on-failure
+  api:
     container_name: nwba-api
-    build: ../WebApi
+    build: ./WebApi
     environment:
       - ConnectionStrings:NWBAConnectionString=Server=mssql;Database=Bank;User=SA;Password=YourSTRONG!Passw0rd
+      - ASPNETCORE_ENVIRONMENT=”development”
+    ports: #in case we want to access this api elsewhere, but the admin app uses the container name
+      - '44343:80'
+    depends_on:
+      - "app"
+  admin:
+    container_name: nwba-admin
+    build:
+      context: .
+      dockerfile: ./NWBA_Web_Admin/Dockerfile 
+    environment:
+      - ASPNETCORE_ENVIRONMENT=”development”
     ports:
       - '80:80'
     depends_on:
-      - "database"
+      - "api"
 volumes:
   bank:
-
-# docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=YourSTRONG!Passw0rd' -p 1401:1433 --network test --name mssql -d microsoft/mssql-server-linux:2017-latest
-
-# docker run -d --rm -p 8080:80 --network test --name myapp test:v1

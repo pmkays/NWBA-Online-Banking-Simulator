@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using NWBA_Web_Admin.Filters;
 using NWBA_Web_Admin.Models;
 using NWBA_Web_Admin.Models.ViewModels;
+using System.Globalization;
 
 namespace NWBA_Web_Admin.Controllers
 {
@@ -24,8 +25,8 @@ namespace NWBA_Web_Admin.Controllers
             {
                 formModel.CustomerID = (int)id;
             }
-            formModel.Date1 = DateTime.Parse("19/12/2019");
-            formModel.Date2 = DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy"));
+            formModel.Date1 = DateTime.ParseExact("19/12/2019", "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            formModel.Date2 = DateTime.ParseExact(DateTime.Now.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
             var customers = await this.GetCustomers();
             ViewBag.AllCustomers = customers;

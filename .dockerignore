@@ -10,3 +10,7 @@ docker-compose.*.yml
 **/obj
 bin/
 obj/
+./bin/
+./obj/
+./bin
+./obj
