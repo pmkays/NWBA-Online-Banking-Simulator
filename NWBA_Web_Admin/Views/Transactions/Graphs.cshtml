@@ -98,7 +98,7 @@
         //calls the right graphs depending on graphType and if the form is valid
         var serializedForm = $('#form').serializeArray();
         if (document.getElementById("graphType").value == "bar" && proceed) {
-            $.post("https://localhost:44317/restrictedtransactionaccess/bargraph", serializedForm, function (transactionDates) {
+            $.post('@Url.Action("BarGraph", "Transactions")', serializedForm, function (transactionDates) {
                 var object = transactionDates;
                 const labels = [];
                 const data = [];
@@ -138,9 +138,8 @@
             error.innerHTML = " ";
         }
         else if (document.getElementById("graphType").value == "pie" && proceed) {
-            $.post("https://localhost:44317/restrictedtransactionaccess/piegraph", serializedForm, function (transactionDates) {
+            $.post('@Url.Action("PieGraph", "Transactions")', serializedForm, function (transactionDates) {
                 var object = transactionDates;
-                console.log(transactionDates);
 
                 const labels = [];
                 const data = [];
@@ -186,9 +185,8 @@
             error.innerHTML = " ";
         }
         else if(document.getElementById("graphType").value == "line" && proceed) {
-            $.post("https://localhost:44317/restrictedtransactionaccess/linegraph", serializedForm, function (transactionDates) {
+            $.post('@Url.Action("LineGraph", "Transactions")', serializedForm, function (transactionDates) {
                 var object = transactionDates;
-                console.log(transactionDates);
                 const labels = [];
                 const data = [];
 
@@ -196,8 +194,6 @@
                     labels.push(moment(x.date).format('DD/MM/YYYY'));
                     data.push({ t: moment(x.date).format('DD/MM/YYYY'), y: x.amount.toFixed(2) });
                 }
-                console.log(labels);
-                console.log(data);
 
                 transactionChart = new Chart(canvas, {
                     type: "line",
@@ -249,7 +245,7 @@
 
             var serializedForm = f.serializeArray();
 
-            $.post("https://localhost:44317/restrictedtransactionaccess/tables", serializedForm, function (transactions) {
+            $.post('@Url.Action("Tables", "Transactions")', serializedForm, function (transactions) {
                 //set up variables to use throughout code
                 var trans = transactions;
                 let table = document.querySelector("table");

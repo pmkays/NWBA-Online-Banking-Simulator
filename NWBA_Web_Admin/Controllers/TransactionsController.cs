@@ -10,6 +10,8 @@ using NWBA_Web_Admin.Filters;
 using NWBA_Web_Admin.Models;
 using NWBA_Web_Admin.Models.ViewModels;
 using System.Globalization;
+using Microsoft.Extensions.Configuration;
+using System.Threading;
 
 namespace NWBA_Web_Admin.Controllers
 {
@@ -25,7 +27,7 @@ namespace NWBA_Web_Admin.Controllers
             {
                 formModel.CustomerID = (int)id;
             }
-            formModel.Date1 = DateTime.ParseExact("19/12/2019", "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            formModel.Date1 = DateTime.ParseExact("19/12/2019", "dd/MM/yyyy", CultureInfo.InvariantCulture); //hardcode first date of transaction
             formModel.Date2 = DateTime.ParseExact(DateTime.Now.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
             var customers = await this.GetCustomers();
@@ -36,9 +38,10 @@ namespace NWBA_Web_Admin.Controllers
         [HttpPost("BarGraph")]
         public async Task<IEnumerable<TransDateCount>> BarGraph(GraphViewModel formModel)
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");
 
-            string date1 = formModel.Date1.ToString("dd-MM-yyyy hh:mm:ss");
-            string date2 = formModel.Date2.ToString("dd-MM-yyyy hh:mm:ss");
+            string date1 = formModel.Date1.ToShortDateString();
+            string date2 = formModel.Date2.ToShortDateString();
 
             HttpResponseMessage response;
 
@@ -75,8 +78,10 @@ namespace NWBA_Web_Admin.Controllers
         public async Task<IEnumerable<TransactionView>> Tables(GraphViewModel formModel)
         {
 
-            string date1 = formModel.Date1.ToString("dd-MM-yyyy hh:mm:ss");
-            string date2 = formModel.Date2.ToString("dd-MM-yyyy hh:mm:ss");
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");
+
+            string date1 = formModel.Date1.ToShortDateString();
+            string date2 = formModel.Date2.ToShortDateString();
 
             HttpResponseMessage response;
 
@@ -107,8 +112,10 @@ namespace NWBA_Web_Admin.Controllers
         public async Task<IEnumerable<TransTypeDateCount>> PieGraph(GraphViewModel formModel)
         {
 
-            string date1 = formModel.Date1.ToString("dd-MM-yyyy hh:mm:ss");
-            string date2 = formModel.Date2.ToString("dd-MM-yyyy hh:mm:ss");
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");
+
+            string date1 = formModel.Date1.ToShortDateString();
+            string date2 = formModel.Date2.ToShortDateString();
 
             HttpResponseMessage response;
 
@@ -140,8 +147,10 @@ namespace NWBA_Web_Admin.Controllers
         public async Task<IEnumerable<AmountDateCount>> LineGraph(GraphViewModel formModel)
         {
 
-            string date1 = formModel.Date1.ToString("dd-MM-yyyy hh:mm:ss");
-            string date2 = formModel.Date2.ToString("dd-MM-yyyy hh:mm:ss");
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");
+
+            string date1 = formModel.Date1.ToShortDateString();
+            string date2 = formModel.Date2.ToShortDateString();
 
             HttpResponseMessage response;
 

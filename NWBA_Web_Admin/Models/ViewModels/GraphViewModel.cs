@@ -14,5 +14,7 @@ namespace NWBA_Web_Admin.Models.ViewModels
 
         public string GraphType { get; set; }
 
+        public string ConnectionString {get; set;}
+
     }
 }

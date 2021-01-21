@@ -12,6 +12,10 @@ using Microsoft.Extensions.Hosting;
 using NWBA_Web_Application.BackgroundService;
 using NWBA_Web_Application.Data;
 using NWBA_Web_Application.Models.Business_Objects;
+using Microsoft.AspNetCore.DataProtection;
+using System.IO;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
 
 namespace NWBA_Web_Application
 {
@@ -32,7 +36,6 @@ namespace NWBA_Web_Application
             services.AddDbContext<NWBAContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("NWBAConnectionString")));
 
-            Console.WriteLine(Configuration.GetConnectionString("NWBAConnectionString"));
             services.AddTransient<CustomerManager>();
             services.AddTransient<AccountManager>();
             services.AddTransient<TransactionManager>();
@@ -54,6 +57,13 @@ namespace NWBA_Web_Application
 
 
             services.AddControllersWithViews();
+
+            // services.AddDataProtection().PersistKeysToFileSystem(new DirectoryInfo(@"..\temp-keys"))
+            //     .UseCryptographicAlgorithms(new AuthenticatedEncryptorConfiguration()
+            //     {
+            //         EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
+            //         ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
+            //     });
 
         }
 

@@ -9,24 +9,30 @@ services:
     ports:
       - '1401:1433'
     volumes:
-      - bank:/var/opt/mssql
+      - bank:/var/opt/mssql #use a named volume for DB persistence
   app:
     container_name: nwba-app
-    build: ./NWBA_Web_Application
+    build:
+      context: .
+      dockerfile: ./Deployment/Docker/App.Dockerfile
     environment:
       - ConnectionStrings:NWBAConnectionString=Server=mssql;Database=Bank;User=SA;Password=YourSTRONG!Passw0rd
-      - ASPNETCORE_ENVIRONMENT=”development”
+      - ASPNETCORE_ENVIRONMENT=”Development”
     ports:
       - '8080:80'
+    volumes:
+      - keys:/root/.aspnet/DataProtection-Keys #.net core uses a data protection api to validate requests so keys must be stored
     depends_on:
       - "database"
-    restart: on-failure
+    restart: on-failure #the DB won't be ready before the app will try make a connection, so this line is essential
   api:
     container_name: nwba-api
-    build: ./WebApi
+    build:
+      context: .
+      dockerfile: ./Deployment/Docker/Api.Dockerfile
     environment:
       - ConnectionStrings:NWBAConnectionString=Server=mssql;Database=Bank;User=SA;Password=YourSTRONG!Passw0rd
-      - ASPNETCORE_ENVIRONMENT=”development”
+      - ASPNETCORE_ENVIRONMENT=”Development”
     ports: #in case we want to access this api elsewhere, but the admin app uses the container name
       - '44343:80'
     depends_on:
@@ -35,12 +41,16 @@ services:
     container_name: nwba-admin
     build:
       context: .
-      dockerfile: ./NWBA_Web_Admin/Dockerfile
+      dockerfile: ./Deployment/Docker/Admin.Dockerfile
     environment:
-      - ASPNETCORE_ENVIRONMENT=”development”
+      - ConnectionStrings:APIConnectionString=http://nwba-api #use network container name for connection
+      - ASPNETCORE_ENVIRONMENT=”Development”
     ports:
-      - '80:80'
+      - '44317:80'
+    volumes:
+      - keys:/root/.aspnet/DataProtection-Keys #.net core uses a data protection api to validate requests so keys must be stored
     depends_on:
       - "api"
 volumes:
   bank:
+  keys:

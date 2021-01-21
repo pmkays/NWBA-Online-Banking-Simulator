@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 using WebApi.Models.DataManagers;
 using WebApi.Models.ViewModels;
+using System.Globalization;
+
 
 namespace WebApi.Controllers
 {
@@ -60,22 +62,21 @@ namespace WebApi.Controllers
         [HttpGet("inbar")]
         public IEnumerable<TransDateCount> GetBarAll(string date1, string date2)
         {
-            return _repo.GetBarAll(DateTime.Parse(date1), DateTime.Parse(date2));
-
+            return _repo.GetBarAll(DateTime.ParseExact(date1, "dd/MM/yyyy", CultureInfo.InvariantCulture), DateTime.ParseExact(date2, "dd/MM/yyyy", CultureInfo.InvariantCulture));
         }
 
         //GET: api/transactions/inbarwithid?id={id}&date1={date1}&date2={date2}
         [HttpGet("inbarwithid")]
         public IEnumerable<TransDateCount> GetBar(int id, string date1, string date2)
         {
-            return _repo.GetBar(id, DateTime.Parse(date1), DateTime.Parse(date2));
+            return _repo.GetBar(id, DateTime.ParseExact(date1, "dd/MM/yyyy", CultureInfo.InvariantCulture), DateTime.ParseExact(date2, "dd/MM/yyyy", CultureInfo.InvariantCulture));
         }
 
         //GET: api/transactions/inpie?date1={date1}&date2={date2}
         [HttpGet("inpie")]
         public IEnumerable<TransTypeDateCount> GetPieAll(string date1, string date2)
         {
-            return _repo.GetPieAll(DateTime.Parse(date1), DateTime.Parse(date2));
+            return _repo.GetPieAll(DateTime.ParseExact(date1, "dd/MM/yyyy", CultureInfo.InvariantCulture), DateTime.ParseExact(date2, "dd/MM/yyyy", CultureInfo.InvariantCulture));
 
         }
 
@@ -83,14 +84,14 @@ namespace WebApi.Controllers
         [HttpGet("inpiewithid")]
         public IEnumerable<TransTypeDateCount> GetPie(int id, string date1, string date2)
         {
-            return _repo.GetPie(id, DateTime.Parse(date1), DateTime.Parse(date2));
+            return _repo.GetPie(id, DateTime.ParseExact(date1, "dd/MM/yyyy", CultureInfo.InvariantCulture), DateTime.ParseExact(date2, "dd/MM/yyyy", CultureInfo.InvariantCulture));
         }
 
         //GET: api/transactions/inline?date1={date1}&date2={date2}
         [HttpGet("inline")]
         public IEnumerable<AmountDateCount> GetLineAll(string date1, string date2)
         {
-            return _repo.GetLineAll(DateTime.Parse(date1), DateTime.Parse(date2));
+            return _repo.GetLineAll(DateTime.ParseExact(date1, "dd/MM/yyyy", CultureInfo.InvariantCulture), DateTime.ParseExact(date2, "dd/MM/yyyy", CultureInfo.InvariantCulture));
 
         }
 
@@ -98,21 +99,21 @@ namespace WebApi.Controllers
         [HttpGet("inlinewithid")]
         public IEnumerable<AmountDateCount> GetLine(int id, string date1, string date2)
         {
-            return _repo.GetLine(id, DateTime.Parse(date1), DateTime.Parse(date2));
+            return _repo.GetLine(id, DateTime.ParseExact(date1, "dd/MM/yyyy", CultureInfo.InvariantCulture), DateTime.ParseExact(date2, "dd/MM/yyyy", CultureInfo.InvariantCulture));
         }
 
         //GET: api/transactions/intable?date1={date1}&date2={date2}
         [HttpGet("intable")]
         public IEnumerable<TransactionView> GetTableAll(string date1, string date2)
         {
-            return _repo.GetTableAll(DateTime.Parse(date1), DateTime.Parse(date2));
+            return _repo.GetTableAll(DateTime.ParseExact(date1, "dd/MM/yyyy", CultureInfo.InvariantCulture), DateTime.ParseExact(date2, "dd/MM/yyyy", CultureInfo.InvariantCulture));
         }
 
         //GET: api/transactions/intablewithid?id={id}&date1={date1}&date2={date2}
         [HttpGet("intablewithid")]
         public IEnumerable<TransactionView> GetTable(int id, string date1, string date2)
         {
-            return _repo.GetTable(id, DateTime.Parse(date1), DateTime.Parse(date2));
+            return _repo.GetTable(id, DateTime.ParseExact(date1, "dd/MM/yyyy", CultureInfo.InvariantCulture), DateTime.ParseExact(date2, "dd/MM/yyyy", CultureInfo.InvariantCulture));
         }
     }
 }
