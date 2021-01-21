@@ -9,7 +9,7 @@ services:
     ports:
       - '1401:1433'
     volumes:
-      - bank:/app
+      - bank:/var/opt/mssql
   app:
     container_name: nwba-app
     build: ./NWBA_Web_Application
@@ -35,7 +35,7 @@ services:
     container_name: nwba-admin
     build:
       context: .
-      dockerfile: ./NWBA_Web_Admin/Dockerfile 
+      dockerfile: ./NWBA_Web_Admin/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=”development”
     ports:
