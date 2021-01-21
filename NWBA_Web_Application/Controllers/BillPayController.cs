@@ -10,6 +10,7 @@ using NWBA_Web_Application.Filters;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
+using System.Globalization;
 
 namespace NWBA_Web_Application.Controllers
 {
@@ -69,7 +70,7 @@ namespace NWBA_Web_Application.Controllers
 
             //creates a new form model and gets the current time with three minutes added
             BillPayFormModel formModel = new BillPayFormModel();
-            formModel.Date = DateTime.Parse(DateTime.Now.AddMinutes(3).ToString("dd/MM/yyyy HH:mm"));
+            formModel.Date = DateTime.ParseExact(DateTime.Now.AddMinutes(3).ToString("dd/MM/yyyy HH:mm"), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
             return View(formModel);
         }
 

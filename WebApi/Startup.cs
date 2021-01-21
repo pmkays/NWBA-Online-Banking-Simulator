@@ -31,8 +31,7 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<NWBAContext>(options =>
-          options.UseSqlServer(Configuration.GetConnectionString("NWBAConnectionString")));
-
+            options.UseSqlServer(Configuration.GetConnectionString("NWBAConnectionString")));
             services.AddTransient<CustomerManager>();
             services.AddTransient<AccountManager>();
             services.AddTransient<TransactionManager>();
